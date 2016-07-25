@@ -10,35 +10,29 @@
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
 <body>
+	<%@ include file="navBar.jsp"%>
+	<br />
 	<%
 		String search = request.getParameter("searchString");
 		ArrayList<Games> resultsList = (ArrayList<Games>) session.getAttribute("GameResults");
 
-		if (search == null) {
-			search = "";
-
-		}
-	%>
-	<form action="SearchGamesServlet" method="get">
-		<%@ include file="navBar.jsp"%>
-	</form>
-	
-	<%
 		if (resultsList != null) {
 	%>
 	<div class="row" id="content">
 		<nav aria-label="You are here:" role="navigation">
 		<ul class="breadcrumbs">
 			<li><a href="DemoIndex.jsp">Home</a></li>
+			<li><a href="navBar.jsp">Search</a></li>
 		</ul>
 		</nav>
 
-		<div class="medium-8 columns">
+		<div class="row medium-8 large-7 columns">
 			<div class="blog-post">
 				<%
 					for (Games inv : resultsList) {
 				%>
-				<h3><%=inv.getName()%><small> / <%=inv.getPrice()%></small>
+				<h3>
+					<%=inv.getName()%><small> / <%=inv.getPrice()%></small>
 				</h3>
 				<a
 					href="DemoProduct.jsp?id=<%=inv.getId()%>&console=<%=inv.getConsole()%>">
@@ -55,15 +49,22 @@
 					href="DemoProduct.jsp?id=<%=inv.getId()%>&console=<%=inv.getConsole()%>"
 					class="button large">Learn More</a>
 
+				<hr>
+
 				<%
 					}
 				%>
-				<hr>
 			</div>
 		</div>
-	</div>
-	<%
-		}
-	%>
+
+		<%
+			}
+		%>
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script
+			src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
 </body>
 </html>

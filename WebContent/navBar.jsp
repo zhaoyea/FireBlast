@@ -38,9 +38,13 @@
 
 			<div class="top-bar-right">
 				<ul class="menu">
-					<li><input type="search" placeholder="Search" name="searchString"></li>
-					<li><input type="submit" value="search" class="button"></li>
-					<li><a href="#">Login</a></li>
+					<li><form action="SearchGamesServlet" method="get"></li>
+						<%session.setAttribute("searchCode","user"); %>
+						<li><input type="search" placeholder="Search"
+							name="searchString"></li>
+						<li><button type="submit" value="search" class="button">Search</button></li>
+					</form>
+					<li><a href="login.jsp">Login</a></li>
 				</ul>
 			</div>
 		</div>

@@ -20,7 +20,7 @@
 </head>
 <body>
 
-	<%@ include file="navBar.jsp"%>
+	<%@ include file="navBar2.jsp"%>
 	<%@include file="loginCheck.jsp" %>
 	<br>
 
