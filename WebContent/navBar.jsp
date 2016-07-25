@@ -49,11 +49,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Top Bar -->
-
-
-	<!-- jQuery -->
-	<script src="js/jquery.js"></script>
+	<!-- End Top Bar -->	
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
