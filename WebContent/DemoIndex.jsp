@@ -77,7 +77,7 @@
 
 	<div class="row column text-center">
 		<h2>XBox</h2>
-		<a href="XBox.jsp" class="button hollow tiny">More on XBox Games</a>
+		<a href="DemoXbox.jsp" class="button hollow tiny">More on XBox Games</a>
 		<hr>
 	</div>
 
@@ -118,7 +118,7 @@
 
 	<div class="row column text-center">
 		<h2>PC</h2>
-		<a href="PC.jsp" class="button hollow tiny">More on PC Games</a>
+		<a href="DemoPC.jsp" class="button hollow tiny">More on PC Games</a>
 		<hr>
 	</div>
 

@@ -27,6 +27,8 @@
 		</nav>
 
 		<div class="row medium-8 large-7 columns">
+			<h2>Search Results</h2>
+			<hr>
 			<div class="blog-post">
 				<%
 					for (Games inv : resultsList) {
