@@ -60,7 +60,7 @@
 						while (genre.next()) {
 			%>
 
-			<span class="button hollow tiny"><%=genre.getString("b.Genre")%></span>
+			<span class="hollow button"><%=genre.getString("b.Genre")%></span>
 
 			<%
 				}
@@ -68,13 +68,15 @@
 			%>
 
 
-			<div class="row">
-				<div class="small-3 columns">
+			<div class="row" data-sticky-container>
+				<div class="sticky" data-sticky data-anchor="content">
 					<h4>Console</h4>
-				</div>
-
-				<div class="small-3 columns">
-					<%=rs.getString("Console") %>
+					<select id="s1" NAME="section" class="ui search dropdown">
+						<option value="">Please Choose</option>
+						<ul>						
+							<span class=""><%=rs.getString("Console")%></span>						
+						</ul>
+					</select>
 				</div>
 			</div>
 
@@ -178,7 +180,7 @@
 							<img src="<%=rs.getString("GameImageLink")%>"
 							alt="<%=rs.getString("Name")%>" width="161px" height="220px">
 						</a>
-						<h6><%=rs.getString("Name") %></h6>
+						<h6><%=rs.getString("Name")%></h6>
 						<a href="#" class="button hollow tiny expanded">Buy Now @ $<%=rs.getString("Price")%></a>
 					</div>
 					<%

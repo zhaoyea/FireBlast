@@ -71,10 +71,12 @@
 				<p></p>
 				<div class="callout">
 					<ul class="menu simple">
-						<%=pc.getString("Description")%>																
-					</ul>					
+						<%=pc.getString("Description")%>
+					</ul>
 				</div>
-				<a href="DemoProduct.jsp?id=<%=pc.getString("GameID")%>&console=<%=pc.getString("Console")%>" class="button large">Learn More</a>
+				<a
+					href="DemoProduct.jsp?id=<%=pc.getString("GameID")%>&console=<%=pc.getString("Console")%>"
+					class="button large">Learn More</a>
 
 				<hr>
 				<%
@@ -92,8 +94,9 @@
 
 		<div class="medium-3 columns" data-sticky-container>
 			<div class="sticky" data-sticky data-anchor="content">
-				<h4>Categories</h4>				
-				<select id="s1" NAME="section" class="ui search dropdown" onChange="SelectRedirect();">
+				<h4>Categories</h4>
+				<select id="s1" NAME="section" class="ui search dropdown"
+					onChange="SelectRedirect();">
 					<option value="">All</option>
 					<ul>
 						<%
@@ -104,11 +107,8 @@
 						<%
 							}
 						%>
-					
+					</ul>
 				</select>
-				</ul>
-
-
 			</div>
 		</div>
 

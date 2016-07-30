@@ -9,7 +9,7 @@ import db.*;
 import db.DBConn;
 
 public class UserManager {
-	public ArrayList<User> searchUser(String search) {
+	public ArrayList<User> searchUser(String searchUser) {
 
 		try {
 
@@ -17,12 +17,12 @@ public class UserManager {
 
 			String sql = "SELECT * FROM Members WHERE UserID LIKE ? OR FirstName LIKE ? OR LastName LIKE ?";
 
-			ArrayList<Games> invList = new ArrayList<Games>();
+			ArrayList<User> invList = new ArrayList<User>();
 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + search + "%");
-			pstmt.setString(2, "%" + search + "%");
-			pstmt.setString(3, "%" + search + "%");
+			pstmt.setString(1, "%" + searchUser + "%");
+			pstmt.setString(2, "%" + searchUser + "%");
+			pstmt.setString(3, "%" + searchUser + "%");
 
 			ResultSet rs = pstmt.executeQuery();
 

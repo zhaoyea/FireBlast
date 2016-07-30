@@ -1,21 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ page import="java.sql.*"%>
+	pageEncoding="ISO-8859-1" import="java.sql.*" import="model.*"
+	import="db.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-<!-- Bootstrap Core CSS-->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="css/modern-business.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css">
+<link rel="stylesheet"
+	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,39 +19,71 @@
 
 </head>
 <body>
+	<%
+		try {
+			String firstName = request.getParameter("FristName");
+			String lastName = request.getParameter("LastName");
+			
+			Connection conn = DBConn.getConnection();
 
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<img src="http://i.imgur.com/W9xtZek.png" alt="LiquidBlast Icon"
-				class="liquidblast"> <a class="navbar-brand" href="#">LiquidBlast
-				Gaming</a>
-		</div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="AdminPanel.jsp">Admin Panel</a></li>
-				<li><a href="logout.jsp">Logout</a></li>
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM members WHERE FirstName=? AND LastName=?");
+			pstmt.setString(1, firstName);
+			pstmt.setString(2, lastName);
+
+			ResultSet user = pstmt.executeQuery();
+	%>
+
+
+	<!-- Start Top Bar -->
+	<div class="top-bar">
+		<div class="row">
+			<div class="top-bar-left">
+				<ul class="dropdown menu" data-dropdown-menu>
+					<li class="menu-text">LiquidBlast</li>
+					<li class="has-submenu"><a href="#">Console</a>
+						<ul class="submenu menu vertical" data-submenu>
+							<li><a href="DemoPS.jsp">PS4</a></li>
+							<li><a href="DemoXbox.jsp">XBox</a></li>
+							<li><a href="DemoPC.jsp">PC</a></li>
+						</ul></li>
+					<li><a href="#">About Us</a></li>
+					<li><a href="#">Support</a></li>
+				</ul>
+			</div>
+
+			<div class="top-bar-right">
+				<ul class="menu">
+					<li><form action="SearchGamesServlet" method="get"></li>
+					<%
+						session.setAttribute("searchCode", "user");
+					%>
+					<li><input type="search" placeholder="Search"
+						name="searchString"></li>
+					<li><button type="submit" value="search" class="button">Search</button></li>
+				</ul>
+			</div>
+			<ul class="dropdown menu" data-dropdown-menu>
+				<li><a href="#"></a>
+					<ul class="menu">
+						<li><a href="#">Item 1A</a></li>
+					</ul></li>
 			</ul>
 		</div>
-		<!-- /.navbar-collapse -->
 	</div>
-	<!-- /.container --> </nav>
-	<!-- /.End navBar -->
-
-	<!-- jQuery -->
-	<script src="js/jquery.js"></script>
+	<!-- End Top Bar -->
+	<%
+		conn.close();
+		} catch (Exception e) {
+			out.println("Error :" + e);
+		}
+	%>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script
+		src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+	<script>
+		$(document).foundation();
+	</script>
 </body>
 </html>

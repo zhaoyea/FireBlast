@@ -27,7 +27,7 @@
 			while (rs.next()) {
 				emailDB = rs.getString("email");
 				passwordDB = rs.getString("password");
-				if (emailDB.equals(email) && passwordDB.equals(password) && rs.getString("Priv_lvl").equals("1")) {
+				if (emailDB.equals(email) && passwordDB.equals(password)) {
 	%><form method="post" action="AdminPanel.jsp">
 		<input type="hidden" name="emailDB" value="<%=rs.getString("email")%>">
 	</form>

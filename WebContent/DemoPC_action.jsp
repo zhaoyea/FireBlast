@@ -97,7 +97,7 @@
 		<div class="medium-3 columns" data-sticky-container>
 			<div class="sticky" data-sticky data-anchor="content">
 				<h4>Categories</h4>
-				<select id="s1" NAME="section" class="ui search dropdown"
+				<select id="s1" NAME="section" class="dropdown menu"
 					onChange="SelectRedirect();">
 					<option value="">Action</option>
 					<ul>

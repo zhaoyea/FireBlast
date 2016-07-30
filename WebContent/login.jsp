@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="db.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -70,18 +70,18 @@
 				<div class="row">
 					<div
 						class="medium-6 medium-centered large-4 large-centered columns">
-						<form action="verifyUserServlet" method="post">
+						<form action="loginServlet" method="get">
 							<div class="row column log-in-form">
 								<h4 class="text-center">Log in</h4>
 								<label>Email <input type="text"
-									placeholder="somebody@example.com">
+									placeholder="somebody@example.com" name="email">
 								</label> <label>Password <input type="password" id="password"
-									placeholder="Password">
+									placeholder="Password" name="password">
 								</label> <input id="show-password" type="checkbox"
 									onchange="document.getElementById('password').type = this.checked ? 'text' : 'password'"><label
 									for="show-password">Show password</label>
 								<p>
-									<a type="submit" class="button expanded">Log In</a>
+									<input type="submit" class="button expanded" value="Log in">
 								</p>
 								<p class="text-center">
 									<a href="#">Forgot your password?</a>
@@ -119,7 +119,7 @@
 								<p class="help-text" id="passwordHelpText">Password must
 									contain both alphabets and numbers and be of length 8 to 16</p>
 								<p>
-									<a type="submit" class="button expanded">Sign up</a>
+									<input type="submit" class="button expanded" value="Sign Up">
 								</p>
 							</div>
 						</form>
@@ -128,13 +128,14 @@
 				</div>
 			</div>
 		</div>
+	</div>
 
 
-		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script
-			src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
-		<script>
-			$(document).foundation();
-		</script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script
+		src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+	<script>
+		$(document).foundation();
+	</script>
 </body>
 </html>
