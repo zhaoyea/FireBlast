@@ -56,13 +56,18 @@ public class loginServlet extends HttpServlet {
 			ResultSet rs = pstmt.executeQuery();			
 			
 			if (rs.next()) {
-				String userType = rs.getString("type");				
+				String userType = rs.getString("type");	
+				String lastName = rs.getString("LastName");	
+				session.setAttribute("LastName", lastName);
 				if (userType.equals("a")){
 					session.setAttribute("loggedIn", "admin");
+					session.setAttribute("email", email);
 					RequestDispatcher rd = request.getRequestDispatcher("DemoAdmin.jsp");
 					rd.forward(request, response);
 				} else {
 					session.setAttribute("loggedIn", "user");
+					session.setAttribute("name", "name");
+					session.setAttribute("email", "email");
 					RequestDispatcher rd = request.getRequestDispatcher("DemoIndexUser.jsp");
 					rd.forward(request, response);
 				}

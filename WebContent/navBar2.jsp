@@ -21,16 +21,16 @@
 <body>
 	<%
 		try {
-			String firstName = request.getParameter("FristName");
-			String lastName = request.getParameter("LastName");
+			String email = (String)session.getAttribute("email");
+			String LastName = (String)session.getAttribute("LastName");
 			
 			Connection conn = DBConn.getConnection();
 
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM members WHERE FirstName=? AND LastName=?");
-			pstmt.setString(1, firstName);
-			pstmt.setString(2, lastName);
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM members WHERE Email=?");
+			pstmt.setString(1, email);
 
 			ResultSet user = pstmt.executeQuery();
+			
 	%>
 
 
@@ -54,20 +54,19 @@
 			<div class="top-bar-right">
 				<ul class="menu">
 					<li><form action="SearchGamesServlet" method="get"></li>
-					<%
-						session.setAttribute("searchCode", "user");
-					%>
-					<li><input type="search" placeholder="Search"
-						name="searchString"></li>
-					<li><button type="submit" value="search" class="button">Search</button></li>
+						<%session.setAttribute("searchCode","user"); %>
+						<li><input type="search" placeholder="Search"
+							name="searchString"></li>
+						<li><button type="submit" value="search" class="button">Search</button></li>
+					</form>
+					<li><% session.getAttribute("LastName"); %></li>
 				</ul>
+				
+				<ul class="menu">
+				
+				</ul>
+				
 			</div>
-			<ul class="dropdown menu" data-dropdown-menu>
-				<li><a href="#"></a>
-					<ul class="menu">
-						<li><a href="#">Item 1A</a></li>
-					</ul></li>
-			</ul>
 		</div>
 	</div>
 	<!-- End Top Bar -->
