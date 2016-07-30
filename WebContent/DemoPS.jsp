@@ -44,7 +44,7 @@
 		try {
 			Connection conn = DBConn.getConnection();
 
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Games WHERE Console='PS4'");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM games WHERE Console='PS4'");
 
 			ResultSet ps4 = pstmt.executeQuery();
 	%>
