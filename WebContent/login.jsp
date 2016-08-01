@@ -59,19 +59,20 @@
 					if (session.getAttribute("error") != null) {
 				%>
 				<center>
-					<div data-alert class="alert label">						
+					<div data-alert class="alert label">
 						<strong>Error!</strong>
 						<%=session.getAttribute("error")%>
 					</div>
-					<div data-alert class="success label">						
+					<% session.removeAttribute("error"); } %>
+				<% if (session.getAttribute("success") != null) { %>
+					<div data-alert class="success label">
 						<strong>Success!</strong>
-						<%=session.getAttribute("success")%>
+						<%=session.getAttribute("success") %>
 					</div>
+					<% session.removeAttribute("success"); } %>
 				</center>
-				<%
-					session.removeAttribute("error");
-					}
-				%>
+				
+
 				<div class="medium-6 medium-centered large-4 large-centered columns">
 					<div class="row">
 						<form action="RegisterServlet" method="post">
