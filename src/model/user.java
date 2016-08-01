@@ -4,18 +4,21 @@ public class User {
 	private int userid;
 	private String firstName;
 	private String lastName;
-	private String email;
+	private static String email;
 	private String password;
-	private int Contact;
-	
-	public User(int userid, String firstName, String lastName, String email, String password, int contact) {
+	private int contact;
+	private String address;
+
+	public User(int userid, String firstName, String lastName, String email, String password, int contact,
+			String address) {
 		super();
 		this.userid = userid;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		Contact = contact;
+		this.contact = contact;
+		this.address = address;
 	}
 
 	public int getUserid() {
@@ -42,7 +45,7 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
+	public static String getEmail() {
 		return email;
 	}
 
@@ -59,12 +62,19 @@ public class User {
 	}
 
 	public int getContact() {
-		return Contact;
+		return contact;
 	}
 
 	public void setContact(int contact) {
-		Contact = contact;
+		contact = contact;
 	}
-	
-	
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 }

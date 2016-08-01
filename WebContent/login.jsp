@@ -12,46 +12,7 @@
 	<%@ include file="navBar.jsp"%>
 	<br />
 
-	<style>
-.log-in-form {
-	border: 1px solid #cacaca;
-	padding: 1rem;
-	border-radius: 3px;
-}
 
-.signup-panel {
-	border-radius: 5px;
-	border: 1px solid #ccc;
-	padding: 15px;
-	margin-top: 30px;
-}
-
-.signup-panel i {
-	font-size: 30px;
-	line-height: 50px;
-	color: #999;
-}
-
-.signup-panel form input, .signup-panel form span {
-	height: 50px;
-}
-
-.signup-panel .welcome {
-	font-size: 26px;
-	text-align: center;
-	margin-left: 0;
-}
-
-.signup-panel p {
-	font-size: 13px;
-	font-weight: 200;
-	margin-left: 25%;
-}
-
-.signup-panel .button {
-	margin-left: 35%;
-}
-</style>
 	<div class="row" id="content">
 		<nav aria-label="You are here:" role="navigation">
 		<ul class="breadcrumbs">
@@ -74,9 +35,9 @@
 							<div class="row column log-in-form">
 								<h4 class="text-center">Log in</h4>
 								<label>Email <input type="text"
-									placeholder="somebody@example.com" name="email">
+									placeholder="somebody@example.com" name="email" required>
 								</label> <label>Password <input type="password" id="password"
-									placeholder="Password" name="password">
+									placeholder="Password" name="password" required>
 								</label> <input id="show-password" type="checkbox"
 									onchange="document.getElementById('password').type = this.checked ? 'text' : 'password'"><label
 									for="show-password">Show password</label>
@@ -92,38 +53,60 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="tabs-panel" id="panel2">
-				<div class="blog-post">
+				<%
+					if (session.getAttribute("error") != null) {
+				%>
+				<center>
+					<div data-alert class="alert label">						
+						<strong>Error!</strong>
+						<%=session.getAttribute("error")%>
+					</div>
+					<div data-alert class="success label">						
+						<strong>Success!</strong>
+						<%=session.getAttribute("success")%>
+					</div>
+				</center>
+				<%
+					session.removeAttribute("error");
+					}
+				%>
+				<div class="medium-6 medium-centered large-4 large-centered columns">
 					<div class="row">
-						<form>
+						<form action="RegisterServlet" method="post">
 							<div class="row column log-in-form">
 								<h4 class="text-center">Sign Up</h4>
 								<label>First Name <input type="text"
-									placeholder="First Name"></label> <label>Last Name <input
-									type="text" placeholder="Last Name"></label> <label>Contact
-									Number<input type="text" placeholder="91234567">
+									placeholder="First Name" name="firstName" required></label> <label>Last
+									Name <input type="text" placeholder="Last Name" name="lastName"
+									required>
+								</label> <label>Contact Number<input type="text"
+									placeholder="91234567" name="contactNumber" required>
+								</label> <label>Mailing Address<input type="text"
+									placeholder="Blk 112 Jurong West Street 12 #12-112 SG 640112"
+									name="mailAddress" required>
 								</label> <label>Email <input type="text"
-									placeholder="somebody@example.com">
-									<p class="help-text" id="passwordHelpText">
-										*Sign-in with email. Provide a valid email to get information
-										about payments, shipping and event winner notification. <br />
-										*Please check validation of your email address before your
-										enter the other information.
+									placeholder="somebody@example.com" name="emailAddress" required>
+									<p class="help-text" id="passwordHelpText" required>
+										*Sign-in with email. Provide a valid email. <br />
 									</p>
-									<button class="tiny button">Validation Check</button>
 								</label> <label>Password <input type="password" id="password"
-									placeholder="Password">
-								</label> <input id="show-password" type="checkbox"
-									onchange="document.getElementById('password').type = this.checked ? 'text' : 'password'"><label
-									for="show-password">Show password</label>
-								<p class="help-text" id="passwordHelpText">Password must
-									contain both alphabets and numbers and be of length 8 to 16</p>
+									placeholder="Password" name="password" required>
+									<p class="help-text" id="passwordHelpText">Password must
+										include at least one upper case letter, One lower case letter,
+										One digit, At least one special character, And minimum 8 in
+										length</p>
+								</label> <label>Re-enter Password <input type="password"
+									id="password" placeholder="Password" name="reEnterPassword"
+									required>
+								</label>
+
 								<p>
 									<input type="submit" class="button expanded" value="Sign Up">
 								</p>
 							</div>
 						</form>
-
 					</div>
 				</div>
 			</div>
@@ -136,6 +119,7 @@
 		src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
 	<script>
 		$(document).foundation();
+		$(document).foundation('alert', 'reflow');
 	</script>
 </body>
 </html>

@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import db.*;
 
@@ -28,13 +29,14 @@ public class UserManager {
 
 			while (rs.next()) {
 				int id = rs.getInt("UserID");
-				String firstName = rs.getString("firstName");
-				String lastName = rs.getString("lastName");
-				String email = rs.getString("email");
-				String password = rs.getString("password");
-				int contact = rs.getInt("contact");
+				String firstName = rs.getString("FirstName");
+				String lastName = rs.getString("LastName");
+				String email = rs.getString("Email");
+				String password = rs.getString("Password");
+				int contact = rs.getInt("Contact");
+				String address = rs.getString("Address");
 
-				User inv = new User(id, firstName, lastName, email, password, contact);
+				User inv = new User(id, firstName, lastName, email, password, contact, address);
 				invList.add(inv);
 			}
 			conn.close();
@@ -44,5 +46,22 @@ public class UserManager {
 			System.out.println("Error :" + e);
 			return null;
 		}
+	}
+
+	public boolean checkDBEmail(String email) throws Exception {
+		Connection conn = DBConn.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM members WHERE Email=?");
+		pstmt.setString(1, email);
+		ResultSet emailDB = pstmt.executeQuery();	
+		try {
+			if (emailDB.next()) {		
+				return true;
+			}
+			conn.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
 	}
 }

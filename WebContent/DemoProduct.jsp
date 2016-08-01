@@ -60,40 +60,29 @@
 						while (genre.next()) {
 			%>
 
-			<span class="hollow button"><%=genre.getString("b.Genre")%></span>
+			
+				<span class="success label"><%=genre.getString("b.Genre")%></span>
+			
 
 			<%
 				}
 						genre.close();
 			%>
 
-
-			<div class="row" data-sticky-container>
-				<div class="sticky" data-sticky data-anchor="content">
-					<h4>Console</h4>
-					<select id="s1" NAME="section" class="ui search dropdown">
-						<option value="">Please Choose</option>
-						<ul>						
-							<span class=""><%=rs.getString("Console")%></span>						
-						</ul>
-					</select>
-				</div>
-			</div>
-
 			<hr>
 
-			<div class="row">
-				<div class="small-3 columns">
-					<h4>Quantity</h4>
-				</div>
-				<div class="small-9 columns">
-					<input type="text" id="middle-label" placeholder="1, 2 or 3">
-				</div>
+			<h4>Console</h4>
+			<div class="small button-group">
+				<a class="button">PS4</a> <a class="success button">XBox</a> <a
+					class="warning button">PC</a>
 			</div>
-
-			<a href="#" class="button large expanded">Buy Now $<%=rs.getString("Price")%></a>
+			<h4>Quantity</h4>
+			<a href="#" class="button large">Buy Now $<%=rs.getString("Price")%></a>
 		</div>
 	</div>
+
+
+
 	<%
 		}
 			conn.close();
@@ -113,46 +102,41 @@
 		<div class="tabs-content" data-tabs-content="example-tabs">
 			<div class="tabs-panel is-active" id="panel1">
 				<h4>Reviews</h4>
-				<div class="media-object stack-for-small">
+				<div class="media-object">
 					<div class="media-object-section">
-						<img class="thumbnail" src="http://placehold.it/200x200">
+						<div class="thumbnail">
+							<img src="assets/img/media-object/avatar-1.jpg">
+						</div>
 					</div>
 					<div class="media-object-section">
-						<h5>Mike Stevenson</h5>
-						<p>I'm going to improvise. Listen, there's something you
-							should know about me... about inception. An idea is like a virus,
-							resilient, highly contagious. The smallest seed of an idea can
-							grow. It can grow to define or destroy you.</p>
-					</div>
-				</div>
-				<div class="media-object stack-for-small">
-					<div class="media-object-section">
-						<img class="thumbnail" src="http://placehold.it/200x200">
-					</div>
-					<div class="media-object-section">
-						<h5>Mike Stevenson</h5>
-						<p>I'm going to improvise. Listen, there's something you
-							should know about me... about inception. An idea is like a virus,
-							resilient, highly contagious. The smallest seed of an idea can
-							grow. It can grow to define or destroy you</p>
-					</div>
-				</div>
-				<div class="media-object stack-for-small">
-					<div class="media-object-section">
-						<img class="thumbnail" src="http://placehold.it/200x200">
-					</div>
-					<div class="media-object-section">
-						<h5>Mike Stevenson</h5>
-						<p>I'm going to improvise. Listen, there's something you
-							should know about me... about inception. An idea is like a virus,
-							resilient, highly contagious. The smallest seed of an idea can
-							grow. It can grow to define or destroy you</p>
+						<h4>I'm First!</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							Porro at, tenetur cum beatae excepturi id ipsa? Esse dolor
+							laboriosam itaque ea nesciunt, earum, ipsum commodi beatae velit
+							id enim repellat.</p>
+						<!-- Nested media object starts here -->
+						<div class="media-object">
+							<div class="media-object-section">
+								<div class="thumbnail">
+									<img src="assets/img/media-object/avatar-2.jpg">
+								</div>
+							</div>
+							<div class="media-object-section">
+								<h4>I'm Second!</h4>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+									Voluptas magni, quam mollitia voluptatum in, animi suscipit
+									tempora ea consequuntur non nulla vitae doloremque. Eius rerum,
+									cum earum quae eveniet odio.</p>
+							</div>
+						</div>
+						<!-- And ends here -->
 					</div>
 				</div>
 				<label> My Review <textarea placeholder="None"></textarea>
 				</label>
 				<button class="button">Submit Review</button>
 			</div>
+
 
 			<!-- Start of DB Conn to Related games -->
 			<%
@@ -169,6 +153,7 @@
 
 					ResultSet rs = pstmt.executeQuery();
 			%>
+
 			<div class="tabs-panel" id="panel2">
 				<div class="row medium-up-3 large-up-5">
 					<%
@@ -197,16 +182,8 @@
 		}
 	%>
 
-	<div class="row column">
-		<hr>
-		<ul class="menu">
-			<li>Yeti Store</li>
-			<li><a href="#">Home</a></li>
-			<li><a href="#">About</a></li>
-			<li><a href="#">Contact</a></li>
-			<li class="float-right">Copyright 2016</li>
-		</ul>
-	</div>
+	<li class="float-right">Copyright 2016</li>
+
 
 
 
