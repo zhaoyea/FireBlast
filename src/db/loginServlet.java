@@ -62,19 +62,16 @@ public class loginServlet extends HttpServlet {
 				if (userType.equals("a")){
 					session.setAttribute("loggedIn", "admin");
 					session.setAttribute("email", email);
-					RequestDispatcher rd = request.getRequestDispatcher("DemoAdmin.jsp");
-					rd.forward(request, response);
+					response.sendRedirect("AdminPanel.jsp");					
 				} else {
 					session.setAttribute("loggedIn", "user");
-					session.setAttribute("name", "name");
-					session.setAttribute("email", "email");
-					RequestDispatcher rd = request.getRequestDispatcher("DemoIndexUser.jsp");
+					session.setAttribute("Username", lastName);
+					RequestDispatcher rd = request.getRequestDispatcher("DemoIndex.jsp");
 					rd.forward(request, response);
 				}
 			} else {
-				request.setAttribute("message", "Username or password error!");
-				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-				rd.include(request, response);
+				session.setAttribute("errMsg", "Username or password error!");
+				response.sendRedirect("login.jsp");				
 			}
 		} catch (
 

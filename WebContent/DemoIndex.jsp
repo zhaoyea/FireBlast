@@ -10,7 +10,7 @@
 </head>
 <body>
 	<%@ include file="navBar.jsp"%>
-
+	
 	<div class="row columns">
 		<div class="orbit" role="region" aria-label="Favorite Space Pictures"
 			data-orbit>

@@ -35,21 +35,43 @@
 					<li><a href="#">Support</a></li>
 				</ul>
 			</div>
-
 			<div class="top-bar-right">
 				<ul class="menu">
 					<li><form action="SearchGamesServlet" method="get"></li>
-						<%session.setAttribute("searchCode","user"); %>
-						<li><input type="search" placeholder="Search"
-							name="searchString"></li>
-						<li><button type="submit" value="search" class="button">Search</button></li>
+					<%
+						session.setAttribute("searchCode", "user");
+					%>
+					<li><input type="search" placeholder="Search"
+						name="searchString"></li>
+					<li><button type="submit" value="search" class="button">Search</button></li>
 					</form>
+					<li>
+						<%
+							if (session.getAttribute("Username") != null) {
+						%>
+						<ul class="dropdown menu" data-dropdown-menu>
+							<li class="has-submenu"><a href="#"><%=session.getAttribute("Username")%></a>
+								<ul class="submenu menu vertical" data-submenu>
+									<li><a href="profile.jsp">Profile</a></li>
+									<li><a href="logout.jsp">Log Out</a></li>
+								</ul></li>
+							<li><a href="cart.jsp"><img
+									src="http://imgur.com/z4kwJMT.png">Cart</a></li>
+						</ul> 
+						<% } else { %>
+					
 					<li><a href="login.jsp">Login</a></li>
 				</ul>
+				</li>
+				<%
+					}
+				%>
 			</div>
+
+
 		</div>
 	</div>
-	<!-- End Top Bar -->	
+	<!-- End Top Bar -->
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

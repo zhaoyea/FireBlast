@@ -60,9 +60,9 @@
 						while (genre.next()) {
 			%>
 
-			
-				<span class="success label"><%=genre.getString("b.Genre")%></span>
-			
+
+			<span class="success label"><%=genre.getString("b.Genre")%></span>
+
 
 			<%
 				}
@@ -71,13 +71,23 @@
 
 			<hr>
 
-			<h4>Console</h4>
-			<div class="small button-group">
-				<a class="button">PS4</a> <a class="success button">XBox</a> <a
-					class="warning button">PC</a>
-			</div>
-			<h4>Quantity</h4>
-			<a href="#" class="button large">Buy Now $<%=rs.getString("Price")%></a>
+			<h4>Order</h4>
+			<form action="Add2Cart" method="post">
+				<div class="input-group">
+					<span class="input-group-label">Quantity</span> <input
+						class="input-group-field" type="number">
+					<div class="input-group-button">
+						<select class="button">
+							<option>PS4</option>
+							<option>XBox</option>
+							<option>PC</option>
+						</select>
+					</div>
+				</div>
+			</form>
+			<button type="submit" class="button large">
+				Buy Now $<%=rs.getString("Price")%></button>
+
 		</div>
 	</div>
 

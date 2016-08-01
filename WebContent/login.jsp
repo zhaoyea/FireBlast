@@ -26,6 +26,17 @@
 				aria-selected="true">Login</a></li>
 			<li class="tabs-title"><a href="#panel2">Sign Up</a></li>
 		</ul>
+			<center>
+				<%
+					if (session.getAttribute("errMsg") != null) {
+				%>
+					<div data-alert class="alert label">
+						<strong>Error!</strong>
+						<%=session.getAttribute("errMsg")%>
+					</div>
+					<%  session.removeAttribute("errMsg"); } %>				
+				</center>
+		
 		<div class="tabs-content" data-tabs-content="example-tabs">
 			<div class="tabs-panel is-active" id="panel1">
 				<div class="row">
@@ -55,21 +66,22 @@
 			</div>
 
 			<div class="tabs-panel" id="panel2">
+			
+			<center>
 				<%
 					if (session.getAttribute("error") != null) {
 				%>
-				<center>
 					<div data-alert class="alert label">
 						<strong>Error!</strong>
 						<%=session.getAttribute("error")%>
 					</div>
-					<% session.removeAttribute("error"); } %>
+					<%  session.removeAttribute("error");} %>
 				<% if (session.getAttribute("success") != null) { %>
 					<div data-alert class="success label">
 						<strong>Success!</strong>
 						<%=session.getAttribute("success") %>
 					</div>
-					<% session.removeAttribute("success"); } %>
+					<%session.removeAttribute("success"); }%>
 				</center>
 				
 

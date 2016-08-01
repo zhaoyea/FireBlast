@@ -58,54 +58,44 @@ public class AccountValidationServlet extends HttpServlet {
 		if (firstName == null && firstName.length() == 0) {
 			errMsg = "<br>Please enter your first name!<br>";
 			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-			return;
+			response.sendRedirect("login.jsp");		
 		} else if (lastName == null && lastName.length() == 0) {
 			errMsg = "<br/>Please enter your last name!<br>";
 			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-			return;
+			response.sendRedirect("login.jsp");			
 		} else if (contactNumber == null || contactNumber.length() > 8) {
 			errMsg = "<br/>Please enter your contact number!<br>";
 			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-			return;
+			response.sendRedirect("login.jsp");	
 		} else if (mailAddress == null && mailAddress.length() == 0) {
 			errMsg = "<br/>Please enter your address!<br>";
 			session.setAttribute("error", errMsg);
 			response.sendRedirect("login.jsp");
-			return;
 		} else if (emailAddress.length() == 0) {
 			errMsg = "<br/>E-mail Address was not provided";
 			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-			return;
+			response.sendRedirect("login.jsp");			
 		} else if (emailAddress.indexOf('@') <= -1) {
 			errMsg = "<br/>Invalid e-mail address - @ is not present";
 			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-			return;
+			response.sendRedirect("login.jsp");			
 		} else if (emailAddress.lastIndexOf(".com") <= -1) {
 			errMsg = "<br/>Invalid e-mail address - (.com) is not present";
 			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-			return;
+			response.sendRedirect("login.jsp");			
 		}
 		else if (emailAddressStartsWithAt == 0) {
 			errMsg = "<br>Invalid e-mail Address! It starts with @!!<br>";
 			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-			return;
+			response.sendRedirect("login.jsp");			
 		} else if (!password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
 			errMsg = "<br/>Password must include at least one upper case letter,<br/> One lower case letter<br/> One digit<br/> At least one special character<br/> And minium 8 in length";
 			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-			return;
-		} else if (reEnterPassword == null && reEnterPassword != password) {
+			response.sendRedirect("login.jsp");			
+		} else if (!password.equals(reEnterPassword)) {
 			errMsg = "<br/>Password not match! <br/> Please enter the password again!";
 			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-			return;
+			response.sendRedirect("login.jsp");			
 		} 
 		else {
 			try {

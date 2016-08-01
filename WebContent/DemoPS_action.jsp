@@ -30,6 +30,14 @@
 			window.location = "DemoPS_sports.jsp";
 			break;
 
+		case "Racing":
+			window.location = "DemoPS_racing.jsp";
+			break;
+		
+		case "Horro":
+			window.location = "DemoPS_horror.jsp";
+			break;
+
 		/// Can be extended to other different selections of SubCategory //////
 		default:
 			window.location = "DemoIndex.jsp"; // if no selection matches then redirected to home page
