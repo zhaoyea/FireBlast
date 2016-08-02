@@ -8,9 +8,10 @@ public class User {
 	private String password;
 	private int contact;
 	private String address;
+	private String type;
 
 	public User(int userid, String firstName, String lastName, String email, String password, int contact,
-			String address) {
+			String address, String type) {
 		super();
 		this.userid = userid;
 		this.firstName = firstName;
@@ -19,6 +20,15 @@ public class User {
 		this.password = password;
 		this.contact = contact;
 		this.address = address;
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public int getUserid() {

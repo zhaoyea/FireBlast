@@ -41,6 +41,8 @@
 			<img class="thumbnail" src="<%=rs.getString("GameImageLink")%>">
 		</div>
 
+
+
 		<div class="medium-6 large-5 columns">
 			<h3><%=rs.getString("Name")%></h3>
 			<p></p>
@@ -71,23 +73,39 @@
 
 			<hr>
 
-			<h4>Order</h4>
+
+			<h3>Price</h3>
+			<span class="success label">$<%=rs.getString("Price")%></span>
+
+
+			<hr>
+
+
+			<%
+				if (session.getAttribute("Username") != null) {
+			%>
 			<form action="Add2Cart" method="post">
 				<div class="input-group">
-					<span class="input-group-label">Quantity</span> <input
-						class="input-group-field" type="number">
-					<div class="input-group-button">
-						<select class="button">
-							<option>PS4</option>
-							<option>XBox</option>
-							<option>PC</option>
-						</select>
-					</div>
+					<label>Quantity</label> <input class="input-group-field"
+						type="number" name="quantity" required>
 				</div>
+				<input type="hidden" value="<%=GameID %>" name="GameID">
+				<button type="submit" class="expanded button">Add to Cart</button>
 			</form>
-			<button type="submit" class="button large">
-				Buy Now $<%=rs.getString("Price")%></button>
+			<%
+			} else {
+		%>
+			<form action="login.jsp" method="post">
+				<div class="input-group">
+					<label>Quantity</label> <input class="input-group-field"
+						type="number">
+				</div>
+				<button type="submit" class="expanded button">Add to Cart</button>
 
+				<%
+				}
+			%>
+			</form>
 		</div>
 	</div>
 

@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.UserManager;
+
 /**
  * Servlet implementation class loginServlet
  */
@@ -45,19 +47,19 @@ public class loginServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
-
+		
 		try {
 			Connection conn = DBConn.getConnection();
 
 			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM members WHERE Email=? AND Password=?");
 			pstmt.setString(1, email);
-			pstmt.setString(2, password);			
+			pstmt.setString(2, password);
 
-			ResultSet rs = pstmt.executeQuery();			
-			
+			ResultSet rs = pstmt.executeQuery();
+			String userType = rs.getString("type");
+			String lastName = rs.getString("LastName");
+
 			if (rs.next()) {
-				String userType = rs.getString("type");	
-				String lastName = rs.getString("LastName");	
 				session.setAttribute("LastName", lastName);
 				if (userType.equals("a")){
 					session.setAttribute("loggedIn", "admin");
@@ -73,10 +75,8 @@ public class loginServlet extends HttpServlet {
 				session.setAttribute("errMsg", "Username or password error!");
 				response.sendRedirect("login.jsp");				
 			}
-		} catch (
-
-		Exception e) {
-			out.println("Error :" + e);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
