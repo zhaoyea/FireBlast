@@ -26,6 +26,8 @@
 				aria-selected="true">Login</a></li>
 			<li class="tabs-title"><a href="#panel2">Sign Up</a></li>
 		</ul>
+
+		<div class="tabs-content" data-tabs-content="example-tabs">
 		<center>
 			<%
 				if (session.getAttribute("errMsg") != null) {
@@ -51,13 +53,11 @@
 				}
 			%>
 		</center>
-
-		<div class="tabs-content" data-tabs-content="example-tabs">
 			<div class="tabs-panel is-active" id="panel1">
 				<div class="row">
 					<div
 						class="medium-6 medium-centered large-4 large-centered columns">
-						<form action="loginServlet" method="get">
+						<form action="loginServlet" method="post">
 							<div class="row column log-in-form">
 								<h4 class="text-center">Log in</h4>
 								<label>Email <input type="text"

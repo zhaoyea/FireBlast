@@ -56,10 +56,11 @@ public class loginServlet extends HttpServlet {
 			pstmt.setString(2, password);
 
 			ResultSet rs = pstmt.executeQuery();
-			String userType = rs.getString("type");
-			String lastName = rs.getString("LastName");
+
 
 			if (rs.next()) {
+				String userType = rs.getString("type");
+				String lastName = rs.getString("LastName");
 				session.setAttribute("LastName", lastName);
 				if (userType.equals("a")){
 					session.setAttribute("loggedIn", "admin");

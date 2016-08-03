@@ -37,7 +37,17 @@ public class AccountValidationServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at:
 		// ").append(request.getContextPath());
+		
+	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
 		String errMsg = "";
 		String successMsg = "";
 		String firstName = request.getParameter("firstName");
@@ -50,74 +60,92 @@ public class AccountValidationServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 
-		UserManager userDB = new UserManager();
-
-		// check if the e-mail address does not start with @
-		int emailStartsWithAt = email.indexOf('@');
-		int emailEndsWith = email.lastIndexOf(".com");
-
-		// check if email exist in the database
+		if (firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() || contact == null
+				|| contact.isEmpty() || address == null || address.isEmpty() || email == null || email.isEmpty()
+				|| password == null || password.isEmpty()) {
+			errMsg = "You did not fill in all the fills! <br/> Please fill them in";
+			session.setAttribute("error", errMsg);
+			response.sendRedirect("login.jsp");
+			return;
+		}
 
 		// validation of form
-		if (firstName == null && firstName.length() == 0) {
-			errMsg = "<br>Please enter your first name!<br>";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} else if (lastName == null && lastName.length() == 0) {
-			errMsg = "<br/>Please enter your last name!<br>";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} else if (contact == null || contact.length() > 8) {
-			errMsg = "<br/>Please enter your contact number!<br>";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} else if (address == null && address.length() == 0) {
-			errMsg = "<br/>Please enter your address!<br>";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} else if (email.length() == 0) {
-			errMsg = "<br/>E-mail Address was not provided";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} else if (email.indexOf('@') <= -1) {
-			errMsg = "<br/>Invalid e-mail address - @ is not present";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} else if (email.lastIndexOf(".com") <= -1) {
-			errMsg = "<br/>Invalid e-mail address - (.com) is not present";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} else if (emailStartsWithAt == 0) {
-			errMsg = "<br>Invalid e-mail Address! It starts with @!!<br>";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} 
-		else if (!password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
-			errMsg = "<br/>Password must include at least one upper case letter,<br/> One lower case letter<br/> One digit<br/> At least one special character<br/> And minium 8 in length";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} else if (!password.equals(reEnterPassword)) {
-			errMsg = "<br/>Password not match! <br/> Please enter the password again!";
-			session.setAttribute("error", errMsg);
-			response.sendRedirect("login.jsp");
-		} else {
-			userDB.insertUser(firstName, lastName, email, reEnterPassword, contact, address);
-			successMsg = "Success! You can now login with " + User.getEmail() + ".";
-			session.setAttribute("success", successMsg);
-			response.sendRedirect("login.jsp");
-		}
-	}
+		else
 
-	
+		{			
+			try {
+				if (contact.length() != 8) {
+					errMsg = "Invalid contact number! Please input only 8 digits.";
+					session.setAttribute("error", errMsg);
+					response.sendRedirect("login.jsp");
+					return;
+				}
+				int contactNumber = Integer.parseInt(request.getParameter("contactNumber"));
+			} catch (NumberFormatException e) {
+				errMsg = "Invalid contact number! Please input only 8 digits.";
+				session.setAttribute("error", errMsg);
+				response.sendRedirect("login.jsp");
+				return;
+			}
+			
+			// check if the e-mail address does not start with @
+			int emailStartsWithAt = email.indexOf('@');
+			int emailEndsWith = email.lastIndexOf(".com");
+			if (email.indexOf('@') <= -1) {
+				errMsg = "<br/>Invalid e-mail address - @ is not present";
+				session.setAttribute("error", errMsg);
+				response.sendRedirect("login.jsp");
+				return;
+			}
+			if (email.lastIndexOf(".com") <= -1) {
+				errMsg = "<br/>Invalid e-mail address - (.com) is not present";
+				session.setAttribute("error", errMsg);
+				response.sendRedirect("login.jsp");
+				return;
+			}
+			if (emailStartsWithAt == 0) {
+				errMsg = "<br>Invalid e-mail Address! It starts with @!!<br>";
+				session.setAttribute("error", errMsg);
+				response.sendRedirect("login.jsp");
+				return;
+			}
+			if (emailEndsWith == 0) {
+				errMsg = "Invalid e-mail Address! It starts with .com <br/>";
+				session.setAttribute("error", errMsg);
+				response.sendRedirect("login.jsp");
+				return;
+			}
+			if (!password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+				errMsg = "<br/>Password must include at least one upper case letter,<br/> One lower case letter<br/> One digit<br/> At least one special character<br/> And minium 8 in length";
+				session.setAttribute("error", errMsg);
+				response.sendRedirect("login.jsp");
+				return;
+			}
+			if (!password.equals(reEnterPassword)) {
+				errMsg = "<br/>Password not match! <br/> Please enter the password again!";
+				session.setAttribute("error", errMsg);
+				response.sendRedirect("login.jsp");
+				return;
+			}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+			UserManager userDB = new UserManager();
+
+			if (userDB.checkDBEmail(email)) {
+				errMsg = "Error! Email already registered!";
+				session.setAttribute("error", errMsg);
+				userDB.close();
+				response.sendRedirect("login.jsp");
+				return;
+			}
+
+			else {
+				userDB.insertUser(firstName, lastName, email, reEnterPassword, contact, address);
+				successMsg = "Success! You can now login";
+				session.setAttribute("success", successMsg);
+				response.sendRedirect("login.jsp");
+				return;
+			}
+		}		
 	}
 
 }

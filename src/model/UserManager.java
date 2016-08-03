@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import db.*;
 
 import model.*;
@@ -44,46 +43,45 @@ public class UserManager {
 			conn.close();
 			return invList;
 		} catch (Exception e) {
-
 			System.out.println("Error :" + e);
 			return null;
 		}
 	}
 
-	public boolean checkDBEmail(String email) throws Exception {
-		Connection conn = DBConn.getConnection();
-		PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM members WHERE Email=?");
-		pstmt.setString(1, email);
-		ResultSet emailDB = pstmt.executeQuery();
+	public boolean checkDBEmail(String email) {
 		try {
-			if (emailDB.next()) {
-				return true;
+			Connection conn = DBConn.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM members WHERE Email=?");
+			pstmt.setString(1, email);
+			ResultSet emailDB = pstmt.executeQuery();
+			try {
+				if (emailDB.next()) {
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Error :" + e);
 		}
 		return false;
 	}
 
 	/*
-	public boolean checkLogin(String email, String password) throws Exception {
-		Connection conn = DBConn.getConnection();
-
-		PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM members WHERE Email=? AND Password=?");
-		pstmt.setString(1, email);
-		pstmt.setString(2, password);
-
-		ResultSet rs = pstmt.executeQuery();
-		String userType = rs.getString("type");
-		String lastName = rs.getString("LastName");
-		
-		if(type.equals('a')){
-			
-		}
-		return false;
-	}
-	*/
+	 * public boolean checkLogin(String email, String password) throws Exception
+	 * { Connection conn = DBConn.getConnection();
+	 * 
+	 * PreparedStatement pstmt = conn.prepareStatement(
+	 * "SELECT * FROM members WHERE Email=? AND Password=?"); pstmt.setString(1,
+	 * email); pstmt.setString(2, password);
+	 * 
+	 * ResultSet rs = pstmt.executeQuery(); String userType =
+	 * rs.getString("type"); String lastName = rs.getString("LastName");
+	 * 
+	 * if(type.equals('a')){
+	 * 
+	 * } return false; }
+	 */
 
 	public User insertUser(String firstName, String lastName, String email, String password, String contact,
 			String address) {
@@ -104,9 +102,18 @@ public class UserManager {
 
 			conn.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Error :" + e);
 		}
 
 		return null;
+	}
+
+	public void close() {
+		try {
+			Connection conn = DBConn.getConnection();
+			conn.close();
+		} catch (Exception e) {
+			System.out.println("Error :" + e);
+		}
 	}
 }

@@ -44,7 +44,29 @@ public class GamesManager {
 			return null;
 		}
 	}
+	/*
+	public Games addGames(String name, String description, double price, String date, String imageLink, String console) {
+		try {
+			Connection conn = DBConn.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement();
 
+			pstmt.setString(1, firstName);
+			pstmt.setString(2, lastName);
+			pstmt.setString(3, email);
+			pstmt.setString(4, password);
+			
+			pstmt.executeUpdate();
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;	
+	}
+	*/
+	
 	/*
 	public boolean deleteGames(int id) {
 		try {

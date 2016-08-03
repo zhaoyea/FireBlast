@@ -90,6 +90,7 @@
 						type="number" name="quantity" required>
 				</div>
 				<input type="hidden" value="<%=GameID %>" name="GameID">
+				<input type="hidden" value="<%=rs.getString("Console")%>" name="console">
 				<button type="submit" class="expanded button">Add to Cart</button>
 			</form>
 			<%
