@@ -36,35 +36,29 @@ public class Add2Cart extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setContentType("text/html");
-		
-		String quantity = request.getParameter("quantity");
-		int gameID = Integer.parseInt(request.getParameter("GameID"));
-		String console = request.getParameter("console");
-		User user = null;		
-		
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
+		
+		int gameID = Integer.parseInt(request.getParameter("GameID"));
+		String name = request.getParameter("name");
+		String description = request.getParameter("description");
+		double price = Double.parseDouble(request.getParameter("price"));
+		String imageLink = request.getParameter("imageLink");			
+		String console = request.getParameter("console");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
 				
-		user = (User)session.getAttribute("User");
-		CartManager cart = new CartManager();
+		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart") ;  
 		
-		int userID = user.getUserid();
-		
-		ArrayList<Cart> cartList = cart.displayCart(userID);
-		session.setAttribute("displayCart", cartList);
-		
-		if(cart.checkCart(gameID)) {
-			cart.updateCart(gameID, quantity);	
-		} else {
-			cart.add2Cart(userID, gameID, console, quantity);
+		if (cartList == null) {
+			cartList = new ArrayList<Cart>();
 		}
 		
-		
-		
-		
-		
-		
-		
+		Cart cart = new Cart();
+		cart.setCart(gameID, name, description, price, imageLink, console, quantity);
+		System.out.println(cart);
+		cartList.add(cart);
+		session.setAttribute("displayCart", cartList);
+		response.sendRedirect("cart.jsp");
 		
 		
 		

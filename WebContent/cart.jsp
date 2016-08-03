@@ -7,8 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%
+		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart");
+		for (Cart c : cartList) {
+	%>
+
 	<%@ include file="navBar.jsp"%>
-	<br/>
+	<br />
 	<div class="row" id="content">
 		<nav aria-label="You are here:" role="navigation">
 		<ul class="breadcrumbs">
@@ -16,8 +21,31 @@
 			<li><a href="cart.jsp">Shopping Cart</a></li>
 		</ul>
 		</nav>
-		
-		<%ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart"); %>
+
+		<h2>Shopping Cart</h2>
+
+		<table>
+			<thead>
+				<tr>
+					<th width="200">Price</th>
+					<th></th>
+					<th width="150">Subtotal</th>
+					<th width="150"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><img src="<%=c.getImageLink()%>" alt="<%=c.getName()%>" width="100px" height="200px"></td>
+					<td><%=c.getName()%><br /><%=c.getConsole()%></td>
+					<td><%=c.getQuantity()%></td>
+					<td><%=c.getPrice()%></td>
+				</tr>				
+			</tbody>
+		</table>
 	</div>
+
+	<%
+		}
+	%>
 </body>
 </html>

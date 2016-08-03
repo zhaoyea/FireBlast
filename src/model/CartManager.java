@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import db.*;
 
 public class CartManager {
+	/*
 	public ArrayList<Cart> displayCart(int userID) {
 
 		try {
@@ -37,10 +38,11 @@ public class CartManager {
 			return cartList;
 		} catch (Exception e) {
 
-			System.out.println("Error :" + e);
+			System.out.println("Error :" + e);			
 			return null;
 		}
 	}
+	*/
 
 	public Cart add2Cart(int userID, int gameID, String console, String quantity) {
 		try {

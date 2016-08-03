@@ -75,7 +75,7 @@
 
 
 			<h3>Price</h3>
-			<span class="success label">$<%=rs.getString("Price")%></span>
+			<span class="success label">$<%=rs.getDouble("Price")%></span>
 
 
 			<hr>
@@ -85,12 +85,15 @@
 				if (session.getAttribute("Username") != null) {
 			%>
 			<form action="Add2Cart" method="post">
-				<div class="input-group">
-					<label>Quantity</label> <input class="input-group-field"
-						type="number" name="quantity" required>
+				<div class="input-group">					
 				</div>
-				<input type="hidden" value="<%=GameID %>" name="GameID">
+				<input type="hidden" value="<%=rs.getInt("GameID") %>" name="GameID">
+				<input type="hidden" value="<%=rs.getString("Name") %>" name="name">
+				<input type="hidden" value="<%=rs.getString("Description") %>" name="description">
+				<input type="hidden" value="<%=rs.getDouble("Price") %>" name="price">
+				<input type="hidden" value="<%=rs.getString("GameImageLink") %>" name="imageLink">				
 				<input type="hidden" value="<%=rs.getString("Console")%>" name="console">
+				<input type="hidden" value="<%=rs.getInt("Quantity") %>" name="quantity">
 				<button type="submit" class="expanded button">Add to Cart</button>
 			</form>
 			<%
