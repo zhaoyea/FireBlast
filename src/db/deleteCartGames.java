@@ -49,8 +49,9 @@ public class deleteCartGames extends HttpServlet {
 				cartList.remove(c);
 				response.sendRedirect("cart.jsp");
 				session.setAttribute("deleteMsg", c.getName() + " deleted");
+				break;
 			}
-			break;
+			
 		}
 	}
 

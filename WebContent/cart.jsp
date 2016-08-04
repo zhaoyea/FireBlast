@@ -5,11 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Shopping Cart</title>
-<link rel="stylesheet" href="css\foundation.min.css">
+<link rel="stylesheet"
+	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
 <body>
 	<%
 		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart");
+		double totalCost = 0;
 	%>
 	<%@ include file="navBar.jsp"%>
 
@@ -89,8 +91,7 @@
 										type="hidden" value="<%=c.getGameID()%>" name="GameID">
 									<button type="submit" class="tiny success button">Update</button>
 								</form></td>
-							<td><%=c.getPrice() * c.getQuantity()%> <br /> <span
-								class="sucess label">$<%=c.getPrice()%> each
+							<td><span class="sucess label">$<%=c.getPrice() * c.getQuantity()%>
 							</span></td>
 							<td>
 								<form action="deleteCartGames" method="post">
@@ -105,23 +106,28 @@
 						<%
 							}
 						%>
-
 						<tr>
 							<td><label><a href="DemoIndex.jsp">Continue
 										Shopping</a></label></td>
 							<td></td>
 							<td></td>
-							<td>Subtotal $</td>
-							<td></td>
+							<%
+								for (Cart c : cartList) {
+										totalCost += c.getQuantity() * c.getPrice();
+									}
+							%>
+							<td>Subtotal $<%=totalCost%></td>
+							<td><a href="checkout.jsp" class="small expanded button">Checkout</a></td>
+
 						</tr>
 					</tbody>
 				</table>
-				<center>
-					<hr>
-					<%
-						}
-					%>
-				
+			</center>
+			<hr>
+			<%
+				}
+			%>
+
 		</div>
 
 	</div>

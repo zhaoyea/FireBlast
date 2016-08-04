@@ -57,7 +57,7 @@ public class loginServlet extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		} else {
 			UserManager db = new UserManager();
-			User user = db.getUser(inputEmail, inputPassword);
+			User user = db.getUser(inputEmail, inputPassword);			
 
 			if (user == null) {
 				errMsg = "Username or Password wrong! <br/> Please try again!";
@@ -66,7 +66,9 @@ public class loginServlet extends HttpServlet {
 				return;
 			}
 			if (inputEmail.equals(user.getEmail()) && inputPassword.equals(user.getPassword())) {
-				if (userType.equals(user.getType())) {
+				if (userType.equals(user.getType())) {					
+					session.setAttribute("Address", user.getAddress());
+					session.setAttribute("Contact", user.getContact());
 					session.setAttribute("Username", user.getFirstName() + " " + user.getLastName());
 					response.sendRedirect("DemoIndex.jsp");
 					return;

@@ -147,8 +147,6 @@
 			out.println("Error :" + e);
 		}
 	%>
-
-
 	<div class="column row">
 		<hr>
 		<ul class="tabs" data-tabs id="example-tabs">
@@ -156,44 +154,43 @@
 				aria-selected="true">Reviews</a></li>
 			<li class="tabs-title"><a href="#panel2">Similar Products</a></li>
 		</ul>
-		<div class="tabs-content" data-tabs-content="example-tabs">
-			<div class="tabs-panel is-active" id="panel1">
-				<h4>Reviews</h4>
-				<div class="media-object">
-					<div class="media-object-section">
-						<div class="thumbnail">
-							<img src="assets/img/media-object/avatar-1.jpg">
-						</div>
-					</div>
-					<div class="media-object-section">
-						<h4>I'm First!</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Porro at, tenetur cum beatae excepturi id ipsa? Esse dolor
-							laboriosam itaque ea nesciunt, earum, ipsum commodi beatae velit
-							id enim repellat.</p>
-						<!-- Nested media object starts here -->
-						<div class="media-object">
-							<div class="media-object-section">
-								<div class="thumbnail">
-									<img src="assets/img/media-object/avatar-2.jpg">
-								</div>
-							</div>
-							<div class="media-object-section">
-								<h4>I'm Second!</h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-									Voluptas magni, quam mollitia voluptatum in, animi suscipit
-									tempora ea consequuntur non nulla vitae doloremque. Eius rerum,
-									cum earum quae eveniet odio.</p>
-							</div>
-						</div>
-						<!-- And ends here -->
-					</div>
-				</div>
-				<label> My Review <textarea placeholder="None"></textarea>
-				</label>
-				<button class="button" type="submit">Submit Review</button>
-			</div>
+		<%
+			try {
+				Connection conn = DBConn.getConnection();
 
+				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM comment WHERE GameID=?");
+				pstmt.setString(1, GameID);
+
+				ResultSet comment = pstmt.executeQuery();
+
+				while (comment.next()) {
+		%>
+
+
+
+		<div class="tabs-content" data-tabs-content="example-tabs">
+			<form action="addComment" method="post">
+				<div class="tabs-panel is-active" id="panel1">
+					<h4>Reviews</h4>
+					<div class="media-object">
+						<div class="media-object-section">
+							<h3><%=comment.getString("LastName")%></h3>
+							<p><%=comment.getString("Comment")%></p>
+						</div>
+					</div>
+
+					<%
+						}
+							conn.close();
+						} catch (Exception e) {
+							out.println("Error :" + e);
+						}
+					%>
+					<label> My Review <textarea placeholder="None"></textarea>
+					</label>
+					<button class="button" type="submit">Submit Review</button>
+				</div>
+			</form>
 
 			<!-- Start of DB Conn to Related games -->
 			<%
@@ -208,22 +205,23 @@
 					pstmt.setString(1, console);
 					pstmt.setString(2, gid);
 
-					ResultSet rs = pstmt.executeQuery();
+					ResultSet relatedGames = pstmt.executeQuery();
 			%>
 
 			<div class="tabs-panel" id="panel2">
 				<div class="row medium-up-3 large-up-5">
 					<%
-						while (rs.next()) {
+						while (relatedGames.next()) {
 					%>
 					<div class="column">
 						<a
-							href="DemoProduct.jsp?id=<%=rs.getString("GameID")%>&console=<%=rs.getString("Console")%>">
-							<img src="<%=rs.getString("GameImageLink")%>"
-							alt="<%=rs.getString("Name")%>" width="161px" height="220px">
+							href="DemoProduct.jsp?id=<%=relatedGames.getString("GameID")%>&console=<%=relatedGames.getString("Console")%>">
+							<img src="<%=relatedGames.getString("GameImageLink")%>"
+							alt="<%=relatedGames.getString("Name")%>" width="161px"
+							height="220px">
 						</a>
-						<h6><%=rs.getString("Name")%></h6>
-						<a href="#" class="button hollow tiny expanded">Buy Now @ $<%=rs.getString("Price")%></a>
+						<h6><%=relatedGames.getString("Name")%></h6>
+						<a href="#" class="button hollow tiny expanded">Buy Now @ $<%=relatedGames.getString("Price")%></a>
 					</div>
 					<%
 						}
