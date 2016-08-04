@@ -35,22 +35,31 @@
 		</nav>
 	</div>
 
-
 	<div class="row">
+		<center>
+			<%
+				if (session.getAttribute("inputQuantityError") != null) {
+			%>
+			<div data-alert class="alert label">
+				<strong>Error!</strong>
+				<%=session.getAttribute("inputQuantityError")%>
+			</div>
+			<%
+				session.removeAttribute("inputQuantityError");
+						}
+			%>
+		</center>
 		<div class="medium-6 columns">
-			<img class="thumbnail" src="<%=rs.getString("GameImageLink")%>">
+			<img class="thumbnail" src="<%=rs.getString("GameImageLink")%>"
+				alt="<%=rs.getString("Name")%>" width="350px" height="50px" />
 		</div>
 
 
 
 		<div class="medium-6 large-5 columns">
 			<h3><%=rs.getString("Name")%></h3>
-			<p></p>
-			<div class="callout">
-				<ul class="menu simple">
-					<%=rs.getString("Description")%>
-				</ul>
-			</div>
+			<p><%=rs.getString("Description")%></p>
+
 
 			<h3>Genre</h3>
 			<%
@@ -71,44 +80,60 @@
 						genre.close();
 			%>
 
-			<hr>
+
 
 
 			<h3>Price</h3>
-			<span class="success label">$<%=rs.getDouble("Price")%></span>
+			<span class="alert label">$<%=rs.getDouble("Price")%></span>
 
 
-			<hr>
+
 
 
 			<%
 				if (session.getAttribute("Username") != null) {
 			%>
 			<form action="Add2Cart" method="post">
-				<div class="input-group">					
+				<div class="row">
+					<div class="small-3 columns">
+						<label for="middle-label" class="middle">Quantity</label>
+					</div>
+					<div class="small-9 columns">
+						<input type="text" id="middle-label" placeholder="1"
+							name="inputQuantity" required>
+					</div>
 				</div>
-				<input type="hidden" value="<%=rs.getInt("GameID") %>" name="GameID">
-				<input type="hidden" value="<%=rs.getString("Name") %>" name="name">
-				<input type="hidden" value="<%=rs.getString("Description") %>" name="description">
-				<input type="hidden" value="<%=rs.getDouble("Price") %>" name="price">
-				<input type="hidden" value="<%=rs.getString("GameImageLink") %>" name="imageLink">				
-				<input type="hidden" value="<%=rs.getString("Console")%>" name="console">
-				<input type="hidden" value="<%=rs.getInt("Quantity") %>" name="quantity">
+				<input type="hidden" value="<%=rs.getInt("GameID")%>" name="GameID">
+				<input type="hidden" value="<%=rs.getString("Name")%>" name="name">
+				<input type="hidden" value="<%=rs.getString("Description")%>"
+					name="description"> <input type="hidden"
+					value="<%=rs.getDouble("Price")%>" name="price"> <input
+					type="hidden" value="<%=rs.getString("GameImageLink")%>"
+					name="imageLink"> <input type="hidden"
+					value="<%=rs.getString("Console")%>" name="console"> <input
+					type="hidden" value="<%=rs.getInt("Quantity")%>" name="dbQuantity">
 				<button type="submit" class="expanded button">Add to Cart</button>
 			</form>
 			<%
-			} else {
-		%>
+				} else {
+			%>
 			<form action="login.jsp" method="post">
-				<div class="input-group">
-					<label>Quantity</label> <input class="input-group-field"
-						type="number">
+				<div class="row">
+					<div class="small-3 columns">
+						<label for="middle-label" class="middle">Quantity</label>
+					</div>
+					<div class="small-9 columns">
+						<input type="text" id="middle-label" placeholder="1">
+					</div>
 				</div>
 				<button type="submit" class="expanded button">Add to Cart</button>
 
 				<%
-				}
-			%>
+					}
+				%>
+				<%
+					session.setAttribute("loginFirst", "Please login first before you can add a game to cart");
+				%>
 			</form>
 		</div>
 	</div>

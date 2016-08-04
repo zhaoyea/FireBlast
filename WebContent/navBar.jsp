@@ -47,7 +47,7 @@
 					</form>
 					<li>
 						<%
-							if (session.getAttribute("Username") != null) {								
+							if (session.getAttribute("Username") != null) {
 						%>
 						<ul class="dropdown menu" data-dropdown-menu>
 							<li class="has-submenu"><a href="#"><%=session.getAttribute("Username")%></a>
@@ -57,8 +57,9 @@
 								</ul></li>
 							<li><a href="cart.jsp"><img
 									src="http://imgur.com/z4kwJMT.png">Cart</a></li>
-						</ul> 
-						<% } else { %>
+						</ul> <%
+ 	} else {
+ %>
 					
 					<li><a href="login.jsp">Login</a></li>
 				</ul>
@@ -73,7 +74,7 @@
 	</div>
 	<!-- End Top Bar -->
 
-	<!-- Bootstrap Core JavaScript -->
+
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script
 		src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>

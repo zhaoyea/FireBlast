@@ -10,42 +10,36 @@ import db.*;
 import model.*;
 
 public class UserManager {
-	public ArrayList<User> searchUser(String searchUser) {
+	public User getUser(String email, String password) {
 
 		try {
 
 			Connection conn = DBConn.getConnection();
 
-			String sql = "SELECT * FROM Members WHERE UserID LIKE ? OR FirstName LIKE ? OR LastName LIKE ?";
-
-			ArrayList<User> invList = new ArrayList<User>();
+			String sql = "SELECT * FROM Members WHERE email=?";			
 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + searchUser + "%");
-			pstmt.setString(2, "%" + searchUser + "%");
-			pstmt.setString(3, "%" + searchUser + "%");
+			pstmt.setString(1, email);			
 
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				int id = rs.getInt("UserID");
-				String firstName = rs.getString("FirstName");
-				String lastName = rs.getString("LastName");
-				String email = rs.getString("Email");
-				String password = rs.getString("Password");
-				int contact = rs.getInt("Contact");
-				String address = rs.getString("Address");
-				String type = rs.getString("type");
-
-				User inv = new User(id, firstName, lastName, email, password, contact, address, type);
-				invList.add(inv);
+				User user = new User();
+				user.setUserid(rs.getInt("UserID"));
+				user.setFirstName(rs.getString("FirstName"));
+				user.setLastName(rs.getString("LastName"));
+				user.setEmail(rs.getString("Email"));
+				user.setPassword(rs.getString("Password"));
+				user.setAddress(rs.getString("Address"));
+				user.setType(rs.getString("type"));
+				return user;
 			}
-			conn.close();
-			return invList;
+			conn.close();			
 		} catch (Exception e) {
 			System.out.println("Error :" + e);
 			return null;
 		}
+		return null;
 	}
 
 	public boolean checkDBEmail(String email) {
@@ -67,22 +61,7 @@ public class UserManager {
 		return false;
 	}
 
-	/*
-	 * public boolean checkLogin(String email, String password) throws Exception
-	 * { Connection conn = DBConn.getConnection();
-	 * 
-	 * PreparedStatement pstmt = conn.prepareStatement(
-	 * "SELECT * FROM members WHERE Email=? AND Password=?"); pstmt.setString(1,
-	 * email); pstmt.setString(2, password);
-	 * 
-	 * ResultSet rs = pstmt.executeQuery(); String userType =
-	 * rs.getString("type"); String lastName = rs.getString("LastName");
-	 * 
-	 * if(type.equals('a')){
-	 * 
-	 * } return false; }
-	 */
-
+	
 	public User insertUser(String firstName, String lastName, String email, String password, String contact,
 			String address) {
 

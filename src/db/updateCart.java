@@ -2,6 +2,7 @@ package db;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,20 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.*;
-import java.sql.*;
-import java.util.ArrayList;
 
 /**
- * Servlet implementation class Add2Cart
+ * Servlet implementation class updateCart
  */
-@WebServlet("/Add2Cart")
-public class Add2Cart extends HttpServlet {
+@WebServlet("/updateCart")
+public class updateCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Add2Cart() {
+	public updateCart() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -42,48 +41,32 @@ public class Add2Cart extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 
-		String inputQuantityError;
+		String cartError;
 		int gameID = Integer.parseInt(request.getParameter("GameID"));
-		String name = request.getParameter("name");
-		String description = request.getParameter("description");
-		double price = Double.parseDouble(request.getParameter("price"));
-		String imageLink = request.getParameter("imageLink");
-		String console = request.getParameter("console");
-		int inputQuantity = Integer.parseInt(request.getParameter("inputQuantity"));
-		int dbQuantity = Integer.parseInt(request.getParameter("dbQuantity"));
+		int updateQuantity = Integer.parseInt(request.getParameter("updateQuantity"));
 
 		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart");
-		Games g = new Games();
+		GamesManager g = new GamesManager();
 
-		if (cartList == null) {
-			cartList = new ArrayList<Cart>();
-		}
-
-		if (inputQuantity == 0 || inputQuantity < 0) {
-			inputQuantityError = "Please enter a valid quantity value!";
-			session.setAttribute("inputQuantityError", inputQuantityError);
-			response.sendRedirect(request.getHeader("Referer"));
+		if (updateQuantity == 0 || updateQuantity < 0) {
+			cartError = "Please enter a valid quantity value!";
+			session.setAttribute("cartError", cartError);
+			response.sendRedirect("cart.jsp");
 			return;
-		}
-		if (inputQuantity > dbQuantity) {
-			inputQuantityError = "Sorry not enough stock! Please enter a new value";
-			session.setAttribute("inputQuantityError", inputQuantityError);
-			response.sendRedirect(request.getHeader("Referer"));
+		} else if (updateQuantity > g.getGames(String.valueOf(gameID)).getQuantity()) {
+			cartError = "Sorry not enough stock! Please enter a new value";
+			session.setAttribute("cartError", cartError);
+			response.sendRedirect("cart.jsp");
 			return;
 		} else {
-			Cart cart = new Cart(gameID, name, description, price, imageLink, console, inputQuantity);
-			cartList.add(cart);
-			session.setAttribute("displayCart", cartList);
-
 			for (Cart c : cartList) {
 				if (gameID == c.getGameID()) {
-					c.setQuantity(inputQuantity);
-					break;
+					c.setQuantity(updateQuantity);
+					response.sendRedirect("cart.jsp");
+					return;
 				}
 			}
-			response.sendRedirect("cart.jsp");
 		}
-
 	}
 
 	/**

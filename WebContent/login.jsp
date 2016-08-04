@@ -28,31 +28,43 @@
 		</ul>
 
 		<div class="tabs-content" data-tabs-content="example-tabs">
-		<center>
-			<%
-				if (session.getAttribute("errMsg") != null) {
-			%>
-			<div data-alert class="alert label">
-				<strong>Error!</strong>
-				<%=session.getAttribute("errMsg")%>
-			</div>
-			<%
-				session.removeAttribute("errMsg");
-				}
-			%>
+			<center>
+				<%
+					if (session.getAttribute("loginFirst") != null) {
+				%>
+				<div data-alert class="info label">
+					<strong>Note:</strong>
+					<%=session.getAttribute("loginFirst")%>
+				</div>
+				<%
+					session.removeAttribute("loginFirst");
+					}
+				%>
+				<%
+					if (session.getAttribute("errMsg") != null) {
+				%>
+				<div data-alert class="alert label">
+					<strong>Error!</strong>
+					<%=session.getAttribute("errMsg")%>
+				</div>
+				<%
+					session.removeAttribute("errMsg");
+					}
+				%>
 
-			<%
-				if (session.getAttribute("success") != null) {
-			%>
-			<div data-alert class="success label">
-				<strong>Error!</strong>
-				<%=session.getAttribute("success")%>
-			</div>
-			<%
-				session.removeAttribute("success");
-				}
-			%>
-		</center>
+				<%
+					if (session.getAttribute("success") != null) {
+				%>
+				<div data-alert class="success label">
+					<strong>Error!</strong>
+					<%=session.getAttribute("success")%>
+				</div>
+				<%
+					session.removeAttribute("success");
+					}
+				%>
+			</center>
+
 			<div class="tabs-panel is-active" id="panel1">
 				<div class="row">
 					<div
@@ -69,9 +81,6 @@
 									for="show-password">Show password</label>
 								<p>
 									<input type="submit" class="button expanded" value="Log in">
-								</p>
-								<p class="text-center">
-									<a href="#">Forgot your password?</a>
 								</p>
 							</div>
 						</form>

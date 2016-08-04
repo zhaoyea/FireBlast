@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import db.*;
 
@@ -10,7 +11,7 @@ public class GamesManager {
 	public ArrayList<Games> searchGames(String search) {
 
 		try {
-			
+
 			Connection conn = DBConn.getConnection();
 
 			String sql = "SELECT * FROM Games WHERE GameID LIKE ? OR Name LIKE ? OR Console LIKE ?";
@@ -19,8 +20,8 @@ public class GamesManager {
 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + search + "%");
-			pstmt.setString(2, "%" + search + "%");			
-			pstmt.setString(3, "%" + search + "%");			
+			pstmt.setString(2, "%" + search + "%");
+			pstmt.setString(3, "%" + search + "%");
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -32,8 +33,9 @@ public class GamesManager {
 				String date = rs.getString("ReleaseDate");
 				String imageLink = rs.getString("GameImageLink");
 				String console = rs.getString("console");
+				int quantity = rs.getInt("Quantity");
 
-				Games inv = new Games(id, name, description, price, date, imageLink, console);
+				Games inv = new Games(id, name, description, price, date, imageLink, console, quantity);
 				invList.add(inv);
 			}
 			conn.close();
@@ -44,45 +46,39 @@ public class GamesManager {
 			return null;
 		}
 	}
-	/*
-	public Games addGames(String name, String description, double price, String date, String imageLink, String console) {
+
+	public Games getGames(String gameID) {
+		Games game = null;
 		try {
 			Connection conn = DBConn.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement();
-
-			pstmt.setString(1, firstName);
-			pstmt.setString(2, lastName);
-			pstmt.setString(3, email);
-			pstmt.setString(4, password);
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Games WHERE GameID=?");
+			pstmt.setString(1, gameID);
 			
-			pstmt.executeUpdate();
-
-			conn.close();
+			ResultSet rs = pstmt.executeQuery();			
+			if(rs.next()) {
+				game = new Games();
+				game.setId(rs.getInt("GameID"));
+				game.setName(rs.getString("Name"));
+				game.setDescription(rs.getString("Description"));
+				game.setPrice(rs.getDouble("Price"));
+				game.setImageLink(rs.getString("GameImageLink"));
+				game.setConsole(rs.getString("Console"));
+				game.setQuantity(rs.getInt("Quantity"));				
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Error:" + e);
 		}
-		
-		
-		return null;	
+		return game;
 	}
-	*/
-	
 	/*
-	public boolean deleteGames(int id) {
-		try {
-			Connection conn = DBConn.getConnection();
-
-			String sql = "DELETE FROM games WHERE id=?";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, id);
-
-			int recsAffected = pstmt.executeUpdate();
-			conn.close();
-			return recsAffected > 0;
-		} catch (Exception e) {
-			System.out.println(e);
-			return false;
-		}
-	}
-	 */	
+	 * public boolean deleteGames(int id) { try { Connection conn =
+	 * DBConn.getConnection();
+	 * 
+	 * String sql = "DELETE FROM games WHERE id=?"; PreparedStatement pstmt =
+	 * conn.prepareStatement(sql); pstmt.setInt(1, id);
+	 * 
+	 * int recsAffected = pstmt.executeUpdate(); conn.close(); return
+	 * recsAffected > 0; } catch (Exception e) { System.out.println(e); return
+	 * false; } }
+	 */
 }

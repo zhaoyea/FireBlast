@@ -8,13 +8,13 @@ public class Games {
 	private String date;
 	private String imageLink;
 	private String console;
-	
+	private int quantity;
 	public Games() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Games(int id, String name, String description, double price, String date, String imageLink, String console) {
+	public Games(int id, String name, String description, double price, String date, String imageLink, String console, int quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -23,6 +23,15 @@ public class Games {
 		this.date = date;
 		this.imageLink = imageLink;
 		this.console = console;
+		this.quantity = quantity;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public String getConsole() {

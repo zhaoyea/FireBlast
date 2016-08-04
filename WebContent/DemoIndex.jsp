@@ -57,9 +57,8 @@
 				<img src="<%=ps4.getString("GameImageLink")%>"
 				alt="<%=ps4.getString("Name")%>" width="161px" height="220px">
 			</a>
-			<h6><%=ps4.getString("Name")%></h6>			
-			<span class="button hollow tiny"><%=ps4.getString("Price")%></span>
-			<a href="#" class="button small expanded hollow">Buy</a>
+			<h6><%=ps4.getString("Name")%></h6>						
+			<a href="DemoProduct.jsp?id=<%=ps4.getString("GameID")%>&console=<%=ps4.getString("Console")%>" class="button small expanded hollow">View</a>
 		</div>
 		<%
 			}

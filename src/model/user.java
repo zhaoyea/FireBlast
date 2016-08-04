@@ -4,11 +4,15 @@ public class User {
 	private int userid;
 	private String firstName;
 	private String lastName;
-	private static String email;
+	private String email;
 	private String password;
 	private int contact;
 	private String address;
 	private String type;
+	
+	public User() {
+		
+	}
 
 	public User(int userid, String firstName, String lastName, String email, String password, int contact,
 			String address, String type) {
@@ -55,7 +59,7 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public static String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 

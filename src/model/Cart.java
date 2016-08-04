@@ -9,15 +9,9 @@ public class Cart {
 	private String console;
 	private int quantity;
 	
-	public void setCart(int gameID, String name, String description, double price, String imageLink, String console,
-			int quantity) {
-		System.out.println(gameID);
-		System.out.println(name);
-		System.out.println(description);
-		System.out.println(price);
-		System.out.println(imageLink);
-		System.out.println(console);
-		System.out.println(quantity);
+
+	public Cart(int gameID, String name, String description, double price, String imageLink, String console,
+			int quantity) {		
 		this.gameID = gameID;
 		this.name = name;
 		this.description = description;
@@ -26,6 +20,7 @@ public class Cart {
 		this.console = console;
 		this.quantity = quantity;
 	}
+	
 	public int getGameID() {
 		return gameID;
 	}
@@ -68,7 +63,6 @@ public class Cart {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
 	
 	
 	

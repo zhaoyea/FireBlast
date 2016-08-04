@@ -69,21 +69,7 @@
 					<img src="<%=ps4.getString("GameImageLink")%>"
 					alt="<%=ps4.getString("Name")%>" width="161px" height="220px">
 				</a>
-				<h4>Genre</h4>
-				<%
-					PreparedStatement getGenre = conn.prepareStatement(
-									"SELECT * FROM Games a, Genre b, GamesGenre c WHERE a.GameID = c.GameID AND b.GenreID = c.GenreID AND c.gameID = ? ");
-							getGenre.setString(1, GameID);
-							ResultSet genre = getGenre.executeQuery();
-
-							while (genre.next()) {
-				%>
-				<span class="success label"><%=genre.getString("b.Genre")%></span>
-
-				<%
-					}
-							genre.close();
-				%>
+				
 				<p></p>
 				<div class="callout">
 					<ul class="menu simple">

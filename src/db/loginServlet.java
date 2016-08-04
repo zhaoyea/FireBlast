@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.UserManager;
+import model.*;
 
 /**
  * Servlet implementation class loginServlet
@@ -42,42 +42,45 @@ public class loginServlet extends HttpServlet {
 		// ").append(request.getContextPath());
 		response.setContentType("text/html");
 
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
+		String inputEmail = request.getParameter("email");
+		String inputPassword = request.getParameter("password");
 
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
-		
-		try {
-			Connection conn = DBConn.getConnection();
 
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM members WHERE Email=? AND Password=?");
-			pstmt.setString(1, email);
-			pstmt.setString(2, password);
+		String errMsg;
+		String userType = "u";
 
-			ResultSet rs = pstmt.executeQuery();
+		if (inputEmail == null || inputEmail.isEmpty() || inputPassword == null || inputPassword.isEmpty()) {
+			errMsg = "Username or Password wrong! <br/> Please try again!";
+			session.setAttribute("errMsg", errMsg);
+			response.sendRedirect("login.jsp");
+		} else {
+			UserManager db = new UserManager();
+			User user = db.getUser(inputEmail, inputPassword);
 
-
-			if (rs.next()) {
-				String userType = rs.getString("type");
-				String lastName = rs.getString("LastName");
-				session.setAttribute("LastName", lastName);
-				if (userType.equals("a")){
-					session.setAttribute("loggedIn", "admin");
-					session.setAttribute("email", email);
-					response.sendRedirect("AdminPanel.jsp");					
+			if (user == null) {
+				errMsg = "Username or Password wrong! <br/> Please try again!";
+				session.setAttribute("errMsg", errMsg);
+				response.sendRedirect("login.jsp");
+				return;
+			}
+			if (inputEmail.equals(user.getEmail()) && inputPassword.equals(user.getPassword())) {
+				if (userType.equals(user.getType())) {
+					session.setAttribute("Username", user.getFirstName() + " " + user.getLastName());
+					response.sendRedirect("DemoIndex.jsp");
+					return;
 				} else {
-					session.setAttribute("loggedIn", "user");
-					session.setAttribute("Username", lastName);
-					RequestDispatcher rd = request.getRequestDispatcher("DemoIndex.jsp");
-					rd.forward(request, response);
+					session.setAttribute("Username", user.getFirstName() + " " + user.getLastName());
+					response.sendRedirect("AdminPanel.jsp");
+					return;
 				}
 			} else {
-				session.setAttribute("errMsg", "Username or password error!");
-				response.sendRedirect("login.jsp");				
+				errMsg = "Username and Password wrong! <br/> Please try again!";
+				session.setAttribute("errMsg", errMsg);
+				response.sendRedirect("login.jsp");
+				return;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
