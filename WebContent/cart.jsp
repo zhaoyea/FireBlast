@@ -23,18 +23,19 @@
 		</nav>
 	</div>
 	<div class="row">
-		<%
-			if (session.getAttribute("cartError") != null) {
-		%>
-		<div data-alert class="alert label">
-			<strong>Error!</strong>
-			<%=session.getAttribute("cartError")%>
-		</div>
-		<%
-			session.removeAttribute("cartError");
-			}
-		%>
-
+		<center>
+			<%
+				if (session.getAttribute("cartError") != null) {
+			%>
+			<div data-alert class="alert label">
+				<strong>Error!</strong>
+				<%=session.getAttribute("cartError")%>
+			</div>
+			<%
+				session.removeAttribute("cartError");
+				}
+			%>
+		</center>
 		<h3>Shopping Cart</h3>
 		<%
 			if (cartList == null) {
@@ -53,11 +54,11 @@
 				<table class="hover">
 					<thead>
 						<tr>
-							<th></th>
 							<th width="200">Item</th>
 							<th>Game Name</th>
 							<th width="150">Quantity</th>
 							<th width="150">Price</th>
+							<th></th>
 						</tr>
 					</thead>
 					<hr>
@@ -67,29 +68,34 @@
 						%>
 
 						<tr>
-							<td>
-								<form action="deleteCartGames" method="post">
-									<div class="callout" data-closable>
-										<button class="close-button" aria-label="Dismiss alert"
-											data-close>
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-								</form>
-							</td>
-
 							<td><img src="<%=c.getImageLink()%>" alt="<%=c.getName()%>"
 								width="100px" height="200px"></td>
 							<td><%=c.getName()%> <br /> <span class="secondary label"><%=c.getConsole()%></span>
 							</td>
-							<td><form action="updateCart" method="">
+							<td><form action="updateCart" method="post">
 									<input class="input-group-field" type="number"
 										value="<%=c.getQuantity()%>" name="updateQuantity"> <input
 										type="hidden" value="<%=c.getGameID()%>" name="GameID">
 									<button type="submit" class="tiny success button">Update</button>
 								</form></td>
-							<td><span class="sucess label"><%=c.getPrice() * c.getQuantity()%></span></td>
-
+							<td><%=c.getPrice() * c.getQuantity()%> <br /> <span
+								class="sucess label">$<%=c.getPrice()%> each
+							</span></td>
+							<td>
+								<form action="deleteCartGames" method="post">
+									<div class="callout" data-closable>
+										<button type="submit" class="close-button"
+											aria-label="Dismiss alert" data-close>&times;</button>
+										<input type="hidden" value="<%=c.getGameID()%>" name="GameID">
+										<input type="hidden" value="<%=c.getName()%>" name="name">
+										<input type="hidden" value="<%=c.getDescription()%>" name="description"> 
+										<input type="hidden" value="<%=c.getPrice()%>" name="price"> 
+										<input type="hidden" value="<%=c.getImageLink()%>" name="imageLink"> 
+										<input type="hidden" value="<%=c.getConsole()%>" name="console">
+										<input type="hidden" value="<%=c.getQuantity()%>" name="dbQuantity">
+									</div>
+								</form>
+							</td>
 						</tr>
 						<%
 							}
