@@ -191,7 +191,7 @@
 				</div>
 				<label> My Review <textarea placeholder="None"></textarea>
 				</label>
-				<button class="button">Submit Review</button>
+				<button class="button" type="submit">Submit Review</button>
 			</div>
 
 

@@ -35,10 +35,21 @@
 				session.removeAttribute("cartError");
 				}
 			%>
+			<%
+				if (session.getAttribute("deleteMsg") != null) {
+			%>
+			<div data-alert class="info label">
+				<strong>Note:</strong>
+				<%=session.getAttribute("deleteMsg")%>
+			</div>
+			<%
+				session.removeAttribute("deleteMsg");
+				}
+			%>
 		</center>
 		<h3>Shopping Cart</h3>
 		<%
-			if (cartList == null) {
+			if (cartList == null || cartList.isEmpty()) {
 		%>
 
 		<div class="row column text-center">
@@ -87,12 +98,6 @@
 										<button type="submit" class="close-button"
 											aria-label="Dismiss alert" data-close>&times;</button>
 										<input type="hidden" value="<%=c.getGameID()%>" name="GameID">
-										<input type="hidden" value="<%=c.getName()%>" name="name">
-										<input type="hidden" value="<%=c.getDescription()%>" name="description"> 
-										<input type="hidden" value="<%=c.getPrice()%>" name="price"> 
-										<input type="hidden" value="<%=c.getImageLink()%>" name="imageLink"> 
-										<input type="hidden" value="<%=c.getConsole()%>" name="console">
-										<input type="hidden" value="<%=c.getQuantity()%>" name="dbQuantity">
 									</div>
 								</form>
 							</td>
