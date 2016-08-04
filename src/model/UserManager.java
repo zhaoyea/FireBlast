@@ -30,6 +30,7 @@ public class UserManager {
 				user.setLastName(rs.getString("LastName"));
 				user.setEmail(rs.getString("Email"));
 				user.setPassword(rs.getString("Password"));
+				user.setContact(rs.getInt("Contact"));
 				user.setAddress(rs.getString("Address"));
 				user.setType(rs.getString("type"));
 				return user;
