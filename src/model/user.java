@@ -79,8 +79,14 @@ public class User {
 		return contact;
 	}
 
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + ", contact=" + contact + ", address=" + address + ", type=" + type + "]";
+	}
+
 	public void setContact(int contact) {
-		contact = contact;
+		this.contact = contact;
 	}
 
 	public String getAddress() {

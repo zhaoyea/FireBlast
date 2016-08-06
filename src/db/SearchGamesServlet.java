@@ -49,8 +49,8 @@ public class SearchGamesServlet extends HttpServlet {
 		if (session.getAttribute("searchCode").equals("user")) {
 			RequestDispatcher rd = request.getRequestDispatcher("DemoSearch.jsp");
 			rd.forward(request, response);
-		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("searchBar.jsp");
+		} else if (session.getAttribute("searchCode").equals("admin")){
+			RequestDispatcher rd = request.getRequestDispatcher("AdminSearchGames.jsp");
 			rd.forward(request, response);
 		}
 	}

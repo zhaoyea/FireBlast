@@ -70,6 +70,31 @@ public class GamesManager {
 		}
 		return game;
 	}
+	public Games insertGames(int id, String name, String description, double price, String date, String imageLink, String console, int quantity) {
+		try {
+			Connection conn = DBConn.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(
+					"INSERT INTO Games(GameID,Name,Description,Price,ReleaseDate,GameImageLink,Console,Quantity) VALUES(?,?,?,?,?,?,?,?)");
+
+			pstmt.setInt(1, id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, description);
+			pstmt.setDouble(4, price);
+			pstmt.setString(5, date);
+			pstmt.setString(6, imageLink);
+			pstmt.setString(7, console);
+			pstmt.setInt(8, quantity);
+
+			pstmt.executeUpdate();
+
+			conn.close();
+		} catch (Exception e) {
+			System.out.println("Error :" + e);
+		}
+
+		return null;
+	}
+	
 	/*
 	 * public boolean deleteGames(int id) { try { Connection conn =
 	 * DBConn.getConnection();

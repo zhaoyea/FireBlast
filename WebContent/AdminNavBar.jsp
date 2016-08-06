@@ -25,26 +25,35 @@
 			<div class="top-bar-left">
 				<ul class="dropdown menu" data-dropdown-menu>
 					<li class="menu-text">LiquidBlast</li>
-					<li class="has-submenu"><a href="#">Console</a>
+					<li class="has-submenu"><a href="#">Tables</a>
 						<ul class="submenu menu vertical" data-submenu>
-							<li><a href="DemoPS.jsp">PS4</a></li>
-							<li><a href="DemoXbox.jsp">XBox</a></li>
-							<li><a href="DemoPC.jsp">PC</a></li>
-						</ul></li>
-					<li><a href="#">About Us</a></li>
-					<li><a href="#">Support</a></li>
+							<li><a href="AdminGames.jsp">Games</a></li>
+							<li><a href="AdminGenre.jsp">Genre</a></li>
+							<li><a href="AdminMembers.jsp">Members</a></li>
+						</ul>
+					</li>					
+					<li class="has-submenu"><a href="#">Insert</a>
+						<ul class="submenu menu vertical" data-submenu>
+							<li><a href="AdminInsertGames.jsp">Games</a></li>
+							<li><a href="AdminInsertGenre.jsp">Genre</a></li>							
+						</ul>
+					</li>
+					<li class="has-submenu"><a href="#">Delete</a>
+						<ul class="submenu menu vertical" data-submenu>
+							<li><a href="AdminInsertGames.jsp">Games</a></li>
+							<li><a href="AdminInsertGenre.jsp">Genre</a></li>
+							<li><a href="AdminInsertMembers.jsp">Members</a></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<div class="top-bar-right">
-				<ul class="menu">				
-					<li><form action="SearchGamesServlet" method="get"></li>					
+				<ul class="menu">
+					<li></li>
 					<%
-						session.setAttribute("searchCode", "user");
+						session.setAttribute("searchCode", "admin");
 					%>
-					<li><input type="search" placeholder="Search"
-						name="searchString"></li>
-					<li><button type="submit" value="search" class="button">Search</button></li>
-					</form>
+					<li></li>
 					<li>
 						<%
 							if (session.getAttribute("Username") != null) {
@@ -53,17 +62,14 @@
 							<li class="has-submenu"><a href="#"><%=session.getAttribute("Username")%></a>
 								<ul class="submenu menu vertical" data-submenu>
 									<li><a href="profile.jsp">Profile</a></li>
-									<li><a href="logout">Log Out</a></li>									
+									<li><a href="logout">Log Out</a></li>
 								</ul></li>
-							<li><a href="cart.jsp"><img
-									src="http://imgur.com/z4kwJMT.png">Cart</a></li>
 						</ul> <%
  	} else {
  %>
 					
 					<li><a href="login.jsp">Login</a></li>
 				</ul>
-				</li>
 				<%
 					}
 				%>

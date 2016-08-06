@@ -67,8 +67,7 @@
 
 			<div class="tabs-panel is-active" id="panel1">
 				<div class="row">
-					<div
-						class="medium-6 medium-centered large-4 large-centered columns">
+					<div class="medium-6 medium-centered large-4 large-centered columns">
 						<form action="loginServlet" method="post">
 							<div class="row column log-in-form">
 								<h4 class="text-center">Log in</h4>

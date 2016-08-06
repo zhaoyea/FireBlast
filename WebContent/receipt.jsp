@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Invoice</title>
 </head>
 <body>
-	<%
-		session.invalidate();
-		response.sendRedirect("index.jsp");
-	%>
+<h1>Thanks</h1>
 </body>
 </html>

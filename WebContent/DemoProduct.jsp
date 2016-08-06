@@ -24,8 +24,8 @@
 			while (rs.next()) {
 	%>
 
-	<br>
-	<!-- You can now combine a row and column if you just need a 12 column row -->
+	<br/>
+	
 	<div class="row columns">
 		<nav aria-label="You are here:" role="navigation">
 		<ul class="breadcrumbs">

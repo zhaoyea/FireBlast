@@ -67,13 +67,12 @@ public class loginServlet extends HttpServlet {
 			}
 			if (inputEmail.equals(user.getEmail()) && inputPassword.equals(user.getPassword())) {
 				if (userType.equals(user.getType())) {					
-					session.setAttribute("Address", user.getAddress());
-					session.setAttribute("Contact", user.getContact());
+					session.setAttribute("User", user);					
 					session.setAttribute("Username", user.getFirstName() + " " + user.getLastName());
 					response.sendRedirect("DemoIndex.jsp");
 					return;
 				} else {
-					session.setAttribute("Username", user.getFirstName() + " " + user.getLastName());
+					session.setAttribute("Username", "Admin");
 					response.sendRedirect("AdminPanel.jsp");
 					return;
 				}

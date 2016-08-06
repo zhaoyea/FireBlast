@@ -118,6 +118,7 @@
 							%>
 							<td>Subtotal $<%=totalCost%></td>
 							<td><a href="checkout.jsp" class="small expanded button">Checkout</a></td>
+							
 
 						</tr>
 					</tbody>
