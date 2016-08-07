@@ -43,17 +43,34 @@ public class updateCart extends HttpServlet {
 
 		String cartError;
 		int gameID = Integer.parseInt(request.getParameter("GameID"));
-		int updateQuantity = Integer.parseInt(request.getParameter("updateQuantity"));
+		String updateQuantity = request.getParameter("updateQuantity");
+		Integer updateQuantityNumber = null;
 
 		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart");
 		GamesManager g = new GamesManager();
+		
+		
+		try {
+			if (updateQuantity == null || updateQuantity.isEmpty()) {
+				cartError = "Please enter a valid quantity value!";
+				session.setAttribute("cartError", cartError);
+				response.sendRedirect(request.getHeader("Referer"));
+				return;
+			}
+			updateQuantityNumber = Integer.parseInt(request.getParameter("updateQuantity"));
+		} catch (final NumberFormatException e) {
+			cartError = "Please enter a valid quantity value!";
+			session.setAttribute("cartError", cartError);
+			response.sendRedirect(request.getHeader("Referer"));
+			return;
+		}
 
-		if (updateQuantity == 0 || updateQuantity < 0) {
+		if (updateQuantityNumber == 0 || updateQuantityNumber < 0) {
 			cartError = "Please enter a valid quantity value!";
 			session.setAttribute("cartError", cartError);
 			response.sendRedirect("cart.jsp");
 			return;
-		} else if (updateQuantity > g.getGames(String.valueOf(gameID)).getQuantity()) {
+		} else if (updateQuantityNumber > g.getGames(String.valueOf(gameID)).getQuantity()) {
 			cartError = "Sorry not enough stock! Please enter a new value";
 			session.setAttribute("cartError", cartError);
 			response.sendRedirect("cart.jsp");
@@ -61,7 +78,7 @@ public class updateCart extends HttpServlet {
 		} else {
 			for (Cart c : cartList) {
 				if (gameID == c.getGameID()) {
-					c.setQuantity(updateQuantity);
+					c.setQuantity(updateQuantityNumber);
 					response.sendRedirect("cart.jsp");
 					return;
 				}

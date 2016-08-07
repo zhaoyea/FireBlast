@@ -18,14 +18,14 @@ import model.*;
 @WebServlet("/SearchStockServlet")
 public class SearchStockServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SearchStockServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SearchStockServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,23 +35,41 @@ public class SearchStockServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		
+		String inputStockError;
 		String adminSearch = (String) session.getAttribute("AdminSearch");	
-		int stock = Integer.parseInt(adminSearch);
+		Integer stock = null;
 		
 		
+		try {
+			if (adminSearch == null || adminSearch.isEmpty()) {
+				inputStockError = "Please enter a valid quantity value!";
+				session.setAttribute("inputStockError", inputStockError);
+				response.sendRedirect(request.getHeader("Referer"));
+				return;
+			}
+			stock = Integer.parseInt(adminSearch);
+			
+		} catch (final NumberFormatException e) {
+			inputStockError = "Please enter a valid quantity value!";
+			session.setAttribute("inputStockError", inputStockError);
+			response.sendRedirect(request.getHeader("Referer"));
+			return;
+		}
 		GamesManager db = new GamesManager();
 		ArrayList<Stock> AdminGame = db.searchStock(stock);
 		session.setAttribute("AdminStockResults", AdminGame);
-		RequestDispatcher rd = request.getRequestDispatcher("AdminSearchStock.jsp");
-		rd.forward(request, response);
+		response.sendRedirect("AdminSearchStock.jsp");		
+		
 		
 		
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

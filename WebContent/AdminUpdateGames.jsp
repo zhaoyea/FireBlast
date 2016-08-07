@@ -96,7 +96,7 @@
 								}
 								gamesgenre.close();
 
-								PreparedStatement getGenre = conn.prepareStatement("SELECT GenreID,Genre FROM Genre");
+								PreparedStatement getGenre = conn.prepareStatement("SELECT GenreID,Genre FROM genre");
 
 								ResultSet rs2 = getGenre.executeQuery();
 								while (rs2.next()) {

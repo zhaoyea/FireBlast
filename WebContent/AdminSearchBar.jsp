@@ -9,28 +9,39 @@
 <link rel="stylesheet"
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
-<body>	
+<body>
 	<%
 		if (session.getAttribute("Username") == null || session.getAttribute("User") != null) {
-			response.sendRedirect("ErrorPage.jsp");	
+			response.sendRedirect("ErrorPage.jsp");
 		} else {
 	%>
 	<%@include file="AdminNavBar.jsp"%>
 	<br />
 	<center>
+		<%
+			if (session.getAttribute("inputStockError") != null) {
+		%>
+		<div data-alert class="alert label">
+			<strong>Error!</strong>
+			<%=session.getAttribute("inputStockError")%>
+		</div>
+		<%
+			session.removeAttribute("inputStockError");
+				}
+		%>
 		<form action="AdminSearch" method="post">
 			<div class="row" id="content">
 				<ul class="menu">
 					<small>What do you want to search?</small>
 					<br />
-					<input type="radio" name="choose" value="games" checked />
+					<input type="radio" name="choose" value="games" />
 					<label>Games</label>
 					<input type="radio" name="choose" value="genre" />
 					<label>Genre</label>
-					<input type="radio" name="choose" value="stock" />
-					<label>Stock</label>					
+					<input type="radio" name="choose" value="stock" checked />
+					<label>Stock</label>
 					<li><input type="text" placeholder="Search"
-						name="AdminSearchString"></li>									
+						name="AdminSearchString"></li>
 					<li><button type="submit" value="search" class="button">Search</button></li>
 				</ul>
 			</div>

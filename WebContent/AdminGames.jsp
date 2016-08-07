@@ -31,6 +31,7 @@
 			<li>Games Table</li>
 			<li><a href="AdminGenre.jsp">Genre Table</a></li>
 			<li><a href="AdminMembers.jsp">Member Table</a></li>
+			<li><a href="AdminSearchStock.jsp">Stocks Table</a></li>
 		</ul>
 		</nav>
 

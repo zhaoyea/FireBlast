@@ -49,39 +49,55 @@ public class Add2Cart extends HttpServlet {
 		double price = Double.parseDouble(request.getParameter("price"));
 		String imageLink = request.getParameter("imageLink");
 		String console = request.getParameter("console");
-		int inputQuantity = Integer.parseInt(request.getParameter("inputQuantity"));
+		String inputQuantity = request.getParameter("inputQuantity");
+		Integer inputQuantityNumber = null;
 		int dbQuantity = Integer.parseInt(request.getParameter("dbQuantity"));
-		
-		
+
 		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart");
 		Games g = new Games();
 
 		if (cartList == null) {
 			cartList = new ArrayList<Cart>();
 		}
-		
-		
 
-		if (inputQuantity == 0 || inputQuantity < 0) {
+		
+		try {
+			if (inputQuantity == null || inputQuantity.isEmpty()) {
+				inputQuantityError = "Please enter a valid quantity value!";
+				session.setAttribute("inputQuantityError", inputQuantityError);
+				response.sendRedirect(request.getHeader("Referer"));
+				return;
+			}
+			inputQuantityNumber = Integer.parseInt(request.getParameter("inputQuantity"));
+		} catch (final NumberFormatException e) {
 			inputQuantityError = "Please enter a valid quantity value!";
 			session.setAttribute("inputQuantityError", inputQuantityError);
 			response.sendRedirect(request.getHeader("Referer"));
 			return;
 		}
-		if (inputQuantity > dbQuantity) {
+
+		
+
+		if (inputQuantityNumber == 0 || inputQuantityNumber < 0) {
+			inputQuantityError = "Please enter a valid quantity value!";
+			session.setAttribute("inputQuantityError", inputQuantityError);
+			response.sendRedirect(request.getHeader("Referer"));
+			return;
+		}
+		if (inputQuantityNumber > dbQuantity) {
 			inputQuantityError = "Sorry not enough stock! Please enter a new value";
 			session.setAttribute("inputQuantityError", inputQuantityError);
 			response.sendRedirect(request.getHeader("Referer"));
 			return;
-		} else {		
+		} else {
 			for (Cart c : cartList) {
 				if (gameID == c.getGameID()) {
-					c.setQuantity(c.getQuantity() + inputQuantity);	
+					c.setQuantity(c.getQuantity() + inputQuantityNumber);
 					response.sendRedirect("cart.jsp");
 					return;
-				}										
+				}
 			}
-			Cart cart = new Cart(gameID, name, description, price, imageLink, console, inputQuantity);
+			Cart cart = new Cart(gameID, name, description, price, imageLink, console, inputQuantityNumber);
 			cartList.add(cart);
 			session.setAttribute("displayCart", cartList);
 			response.sendRedirect("cart.jsp");

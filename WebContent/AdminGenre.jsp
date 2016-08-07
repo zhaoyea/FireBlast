@@ -30,7 +30,7 @@
 			<li><a href="AdminPanel.jsp">Admin Panel</a></li>
 			<li><a href="AdminGames.jsp">Games Table</a></li>
 			<li>Genre Table</li>
-			<li><a href="AdminMembers.jsp">Member Table</a></li>
+			<li><a href="AdminMembers.jsp">Stocks Table</a></li>
 
 		</ul>
 		</nav>

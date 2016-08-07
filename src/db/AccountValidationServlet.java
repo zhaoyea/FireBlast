@@ -81,7 +81,7 @@ public class AccountValidationServlet extends HttpServlet {
 					return;
 				}
 				int contactNumber = Integer.parseInt(request.getParameter("contactNumber"));
-			} catch (NumberFormatException e) {
+			} catch (final NumberFormatException e) {
 				errMsg = "Invalid contact number! Please input only 8 digits.";
 				session.setAttribute("error", errMsg);
 				response.sendRedirect("login.jsp");

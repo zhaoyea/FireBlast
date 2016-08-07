@@ -9,14 +9,25 @@
 <link rel="stylesheet"
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
-<body>	
+<body>
 	<%
 		if (session.getAttribute("Username") == null || session.getAttribute("User") != null) {
-			response.sendRedirect("ErrorPage.jsp");	
+			response.sendRedirect("ErrorPage.jsp");
 		} else {
 	%>
 
 	<%@ include file="AdminSearchBar.jsp"%>
+	<div class="row" id="content">
+		<nav aria-label="You are here:" role="navigation">
+		<ul class="breadcrumbs">
+			<li><a href="AdminPanel.jsp">Admin Panel</a></li>
+			<li><a href="AdminGames.jsp">Games Table</li>
+			<li>Genre Table</li>
+			<li><a href="AdminMembers.jsp">Member Table</a></li>
+			<li><a href="AdminSearchStock.jsp">Member Table</a></li>
+		</ul>
+		</nav>
+	</div>
 
 	<%
 		ArrayList<Genre> resultsList = (ArrayList<Genre>) session.getAttribute("AdminGenreResults");

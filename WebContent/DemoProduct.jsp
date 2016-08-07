@@ -201,7 +201,7 @@
 					Connection conn = DBConn.getConnection();
 
 					PreparedStatement pstmt = conn.prepareStatement(
-							"SELECT * FROM Games WHERE console LIKE ? AND GameID NOT LIKE ? ORDER BY RAND() LIMIT 5");
+							"SELECT * FROM games WHERE console LIKE ? AND GameID NOT LIKE ? ORDER BY RAND() LIMIT 5");
 					pstmt.setString(1, console);
 					pstmt.setString(2, gid);
 
