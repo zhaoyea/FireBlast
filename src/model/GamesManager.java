@@ -53,9 +53,9 @@ public class GamesManager {
 			Connection conn = DBConn.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Games WHERE GameID=?");
 			pstmt.setString(1, gameID);
-			
-			ResultSet rs = pstmt.executeQuery();			
-			if(rs.next()) {
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
 				game = new Games();
 				game.setId(rs.getInt("GameID"));
 				game.setName(rs.getString("Name"));
@@ -63,14 +63,16 @@ public class GamesManager {
 				game.setPrice(rs.getDouble("Price"));
 				game.setImageLink(rs.getString("GameImageLink"));
 				game.setConsole(rs.getString("Console"));
-				game.setQuantity(rs.getInt("Quantity"));				
+				game.setQuantity(rs.getInt("Quantity"));
 			}
 		} catch (Exception e) {
 			System.out.println("Error:" + e);
 		}
 		return game;
 	}
-	public Games insertGames(int id, String name, String description, double price, String date, String imageLink, String console, int quantity) {
+
+	public Games insertGames(int id, String name, String description, double price, String date, String imageLink,
+			String console, int quantity) {
 		try {
 			Connection conn = DBConn.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(
@@ -94,16 +96,43 @@ public class GamesManager {
 
 		return null;
 	}
-	
-	/*
-	 * public boolean deleteGames(int id) { try { Connection conn =
-	 * DBConn.getConnection();
-	 * 
-	 * String sql = "DELETE FROM games WHERE id=?"; PreparedStatement pstmt =
-	 * conn.prepareStatement(sql); pstmt.setInt(1, id);
-	 * 
-	 * int recsAffected = pstmt.executeUpdate(); conn.close(); return
-	 * recsAffected > 0; } catch (Exception e) { System.out.println(e); return
-	 * false; } }
-	 */
+
+	public Games updateGames(int id, String name, String description, double price, String imageLink, int quantity) {
+		try {
+			Connection conn = DBConn.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(
+					"UPDATE Games SET Name=?, Description=?, Price=?, GameImageLink=?, Quantity=? WHERE GameID=?");
+
+			pstmt.setString(1, name);
+			pstmt.setString(2, description);
+			pstmt.setDouble(3, price);
+			pstmt.setString(4, imageLink);
+			pstmt.setInt(5, quantity);
+			pstmt.setInt(6, id);
+
+			pstmt.executeUpdate();
+
+			conn.close();
+		} catch (Exception e) {
+			System.out.println("Error :" + e);
+		}
+		return null;
+	}
+
+	public boolean deleteGames(int gameID) {
+		try {
+			Connection conn = DBConn.getConnection();
+
+			String sql = "DELETE FROM Games WHERE GameID=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, gameID);
+
+			int recsAffected = pstmt.executeUpdate();
+			conn.close();
+			return recsAffected > 0;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
 }

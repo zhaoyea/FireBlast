@@ -10,8 +10,13 @@
 </head>
 <body>
 	<%
+		if (session.getAttribute("Username") == null) {
+			response.sendRedirect("ErrorPage.jsp");
+		} else {
+	%>
+	<%
 		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart");
-		double totalCost = 0;
+			double totalCost = 0;
 	%>
 	<%@ include file="navBar.jsp"%>
 
@@ -35,7 +40,7 @@
 			</div>
 			<%
 				session.removeAttribute("cartError");
-				}
+					}
 			%>
 			<%
 				if (session.getAttribute("deleteMsg") != null) {
@@ -46,7 +51,7 @@
 			</div>
 			<%
 				session.removeAttribute("deleteMsg");
-				}
+					}
 			%>
 		</center>
 		<h3>Shopping Cart</h3>
@@ -113,12 +118,12 @@
 							<td></td>
 							<%
 								for (Cart c : cartList) {
-										totalCost += c.getQuantity() * c.getPrice();
-									}
+											totalCost += c.getQuantity() * c.getPrice();
+										}
 							%>
 							<td>Subtotal $<%=totalCost%></td>
 							<td><a href="checkout.jsp" class="small expanded button">Checkout</a></td>
-							
+
 
 						</tr>
 					</tbody>
@@ -139,5 +144,8 @@
 	<script>
 		$(document).foundation();
 	</script>
+	<%
+		}
+	%>
 </body>
 </html>

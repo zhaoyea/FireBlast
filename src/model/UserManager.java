@@ -16,10 +16,10 @@ public class UserManager {
 
 			Connection conn = DBConn.getConnection();
 
-			String sql = "SELECT * FROM Members WHERE email=?";			
+			String sql = "SELECT * FROM Members WHERE email=?";
 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, email);			
+			pstmt.setString(1, email);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -35,7 +35,7 @@ public class UserManager {
 				user.setType(rs.getString("type"));
 				return user;
 			}
-			conn.close();			
+			conn.close();
 		} catch (Exception e) {
 			System.out.println("Error :" + e);
 			return null;
@@ -62,7 +62,6 @@ public class UserManager {
 		return false;
 	}
 
-	
 	public User insertUser(String firstName, String lastName, String email, String password, String contact,
 			String address) {
 
@@ -77,6 +76,32 @@ public class UserManager {
 			pstmt.setString(4, password);
 			pstmt.setString(5, contact);
 			pstmt.setString(6, address);
+
+			pstmt.executeUpdate();
+
+			conn.close();
+		} catch (Exception e) {
+			System.out.println("Error :" + e);
+		}
+
+		return null;
+	}
+
+	public User updateUser(int UserID, String firstName, String lastName, String email, String password,
+			String contact, String address) {
+
+		try {
+			Connection conn = DBConn.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(
+					"UPDATE members SET FirstName = ?, LastName = ?, Email = ?, Password = ?, Contact = ?, Address = ? WHERE UserID = ? ");
+
+			pstmt.setString(1, firstName);
+			pstmt.setString(2, lastName);
+			pstmt.setString(3, email);
+			pstmt.setString(4, password);
+			pstmt.setString(5, contact);
+			pstmt.setString(6, address);
+			pstmt.setInt(7, UserID);
 
 			pstmt.executeUpdate();
 

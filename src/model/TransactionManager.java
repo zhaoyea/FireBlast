@@ -37,20 +37,21 @@ public class TransactionManager {
 		return null;
 	}
 
-	public Transaction insertPurchasedGames(int gameID, String gameName, String console,
+	public Transaction insertPurchasedGames(int userID, int gameID, String gameName, String console,
 			String imageLink, int quantityOrdered, double totalPrice) {
 
 		try {
 			Connection conn = DBConn.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(
-					"INSERT INTO transaction(GameID,GameName,Console,GameImageLink,QuantityOrdered,TotalPrice) VALUES(?,?,?,?,?,?)");
+					"INSERT INTO transaction(UserID,GameID,GameName,Console,GameImageLink,QuantityOrdered,TotalPrice) VALUES(?,?,?,?,?,?,?)");
 			
-			pstmt.setInt(1, gameID);
-			pstmt.setString(2, gameName);
-			pstmt.setString(3, console);
-			pstmt.setString(4, imageLink);
-			pstmt.setInt(5, quantityOrdered);
-			pstmt.setDouble(6, totalPrice);			
+			pstmt.setInt(1, userID);
+			pstmt.setInt(2, gameID);
+			pstmt.setString(3, gameName);
+			pstmt.setString(4, console);
+			pstmt.setString(5, imageLink);
+			pstmt.setInt(6, quantityOrdered);
+			pstmt.setDouble(7, totalPrice);			
 
 			pstmt.executeUpdate();
 

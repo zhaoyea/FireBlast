@@ -2,6 +2,7 @@ package model;
 
 public class Transaction {
 	private int transactionID;
+	private int userID;
 	private int gameID;
 	private String gameName;
 	private String console;
@@ -13,16 +14,17 @@ public class Transaction {
 		
 	}
 
-	public Transaction(int transactionID, int gameID, String gameName, String console, String imageLink,
+	public Transaction(int transactionID, int userID, int gameID, String gameName, String console, String imageLink,
 			int quantityOrdered, double totalPrice) {
 		super();
 		this.transactionID = transactionID;
+		this.userID = userID;
 		this.gameID = gameID;
 		this.gameName = gameName;
 		this.console = console;
 		this.imageLink = imageLink;
 		this.quantityOrdered = quantityOrdered;
-		this.totalPrice = totalPrice;		
+		this.totalPrice = totalPrice;
 	}
 
 	public int getTransactionID() {
@@ -31,6 +33,14 @@ public class Transaction {
 
 	public void setTransactionID(int transactionID) {
 		this.transactionID = transactionID;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
 	public int getGameID() {
@@ -80,4 +90,6 @@ public class Transaction {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+
+	
 }

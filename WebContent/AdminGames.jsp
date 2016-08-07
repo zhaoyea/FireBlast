@@ -9,13 +9,19 @@
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
 <body>
+	<%
+		if (session.getAttribute("Username") == null || session.getAttribute("User") != null) {
+			response.sendRedirect("ErrorPage.jsp");
+		} else {
+	%>
+
 	<%@ include file="AdminNavBar.jsp"%>
 
 	<%
 		try {
-			Connection conn = DBConn.getConnection();
-			PreparedStatement getPS4 = conn.prepareStatement("SELECT * FROM games WHERE console='PS4'");
-			ResultSet ps4 = getPS4.executeQuery();
+				Connection conn = DBConn.getConnection();
+				PreparedStatement getPS4 = conn.prepareStatement("SELECT * FROM games WHERE console='PS4'");
+				ResultSet ps4 = getPS4.executeQuery();
 	%>
 	<br />
 	<div class="row" id="content">
@@ -39,6 +45,19 @@
 			<div class="tabs-panel is-active" id="panel1">
 				<div class="row">
 					<h4 class="text-center">PS4</h4>
+					<%
+						if (session.getAttribute("deleteGame") != null) {
+					%>
+					<center>
+						<div data-alert class="info label">
+							<strong>Note:</strong>
+							<%=session.getAttribute("deleteGame")%>
+						</div>
+					</center>
+					<%
+						session.removeAttribute("deleteGame");
+								}
+					%>
 					<table class="hover">
 						<thead>
 							<tr>
@@ -69,11 +88,11 @@
 								<td><img src="<%=ps4.getString("GameImageLink")%>"
 									alt="<%=ps4.getString("Name")%>" width="100px" height="200px"></td>
 								<td><small><%=ps4.getString("GameImageLink")%></small></td>
-								<td>
-								<a href="AdminUpdateGames.jsp?id=<%=ps4.getString("GameID")%>&console=<%=ps4.getString("Console")%>" class="tiny warning button">Update</a> 
-								<br /> 
-								<a href="DeleteGamesServlet" class="tiny alert button">Delete</a>
-								</td>
+								<td><a
+									href="AdminUpdateGames.jsp?id=<%=ps4.getString("GameID")%>&console=<%=ps4.getString("Console")%>"
+									class="tiny warning button">Update</a> <br /> <a
+									href="DeleteGamesServlet?id=<%=ps4.getString("GameID")%>&console=<%=ps4.getString("Console")%>"
+									class="tiny alert button">Delete</a></td>
 							</tr>
 							<%
 								}
@@ -85,7 +104,7 @@
 
 			<%
 				PreparedStatement getXbox = conn.prepareStatement("SELECT * FROM games WHERE console='XBox'");
-					ResultSet xbox = getXbox.executeQuery();
+						ResultSet xbox = getXbox.executeQuery();
 			%>
 
 			<div class="tabs-panel is-active" id="panel2">
@@ -121,11 +140,11 @@
 								<td><img src="<%=xbox.getString("GameImageLink")%>"
 									alt="<%=xbox.getString("Name")%>" width="100px" height="200px"></td>
 								<td><small><%=xbox.getString("GameImageLink")%></small></td>
-								<td>
-								<a href="AdminUpdateGames.jsp?id=<%=xbox.getString("GameID")%>&console=<%=xbox.getString("Console")%>" class="tiny warning button">Update</a> 
-								<br /> 
-								<a href="DeleteGamesServlet" class="tiny alert button">Delete</a>
-								</td>
+								<td><a
+									href="AdminUpdateGames.jsp?id=<%=xbox.getString("GameID")%>&console=<%=xbox.getString("Console")%>"
+									class="tiny warning button">Update</a> <br /> <a
+									href="DeleteGamesServlet?id=<%=xbox.getString("GameID")%>&console=<%=xbox.getString("Console")%>"
+									class="tiny alert button">Delete</a></td>
 							</tr>
 							<%
 								}
@@ -137,7 +156,7 @@
 
 			<%
 				PreparedStatement getPC = conn.prepareStatement("SELECT * FROM games WHERE console='PC'");
-					ResultSet pc = getPC.executeQuery();
+						ResultSet pc = getPC.executeQuery();
 			%>
 
 			<div class="tabs-panel is-active" id="panel3">
@@ -164,7 +183,7 @@
 								while (pc.next()) {
 							%>
 
-							<tr>								
+							<tr>
 								<td><%=pc.getInt("GameID")%></td>
 								<td><small><%=pc.getString("Name")%></small></td>
 								<td><small><%=pc.getString("Description")%></small></td>
@@ -175,10 +194,11 @@
 								<td><img src="<%=pc.getString("GameImageLink")%>"
 									alt="<%=pc.getString("Name")%>" width="100px" height="200px"></td>
 								<td><small><%=pc.getString("GameImageLink")%></small></td>
-								<td>
-									<a href="AdminUpdateGames.jsp?id=<%=pc.getString("GameID")%>&console=<%=pc.getString("Console")%>" class="tiny warning button">Update</a>
-									<br /> <a href="DeleteGamesServlet" class="tiny alert button">Delete</a>
-								</td>													
+								<td><a
+									href="AdminUpdateGames.jsp?id=<%=pc.getString("GameID")%>&console=<%=pc.getString("Console")%>"
+									class="tiny warning button">Update</a> <br /> <a
+									href="DeleteGamesServlet?id=<%=pc.getString("GameID")%>&console=<%=pc.getString("Console")%>"
+									class="tiny alert button">Delete</a></td>
 							</tr>
 							<%
 								}
@@ -191,8 +211,8 @@
 	</div>
 	<%
 		} catch (Exception e) {
-			System.out.println("Error:" + e);
-		}
+				System.out.println("Error:" + e);
+			}
 	%>
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script
@@ -201,5 +221,8 @@
 		$(document).foundation();
 		$(document).foundation('alert', 'reflow');
 	</script>
+	<%
+		}
+	%>
 </body>
 </html>

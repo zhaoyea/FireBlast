@@ -9,12 +9,12 @@
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
 <body>
-	<%@ include file="AdminNavBar.jsp"%>
-
 	<%
-		//code to display error if user try to enter Admin Page through url
+		if (session.getAttribute("Username") == null || session.getAttribute("User") != null) {
+			response.sendRedirect("ErrorPage.jsp");
+		} else {
 	%>
-
+	<%@ include file="AdminNavBar.jsp"%>
 	<br />
 	<div class="row" id="content">
 		<nav aria-label="You are here:" role="navigation">
@@ -26,14 +26,14 @@
 		</ul>
 		</nav>
 	</div>
-	<%@ include file="AdminSearchBar.jsp"%>
-
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script
 		src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
 	<script>
 		$(document).foundation();
-		$(document).foundation('alert', 'reflow');
 	</script>
+	<%
+		}
+	%>
 </body>
 </html>

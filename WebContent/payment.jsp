@@ -37,7 +37,7 @@
 							<label>CCV<input type="text" placeholder="CCV" name="ccv"
 								required></label>
 							<p>
-								<a href="checkout.jsp" class="alert button">Cancel</a> 
+								<a href="checkout.jsp" class="alert button">Cancel</a>
 								<button type="submit" class="warning button">Pay Now</button>
 							</p>
 						</form>
@@ -45,7 +45,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 </body>
 </html>

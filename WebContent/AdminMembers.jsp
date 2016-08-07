@@ -9,13 +9,19 @@
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
 <body>
+	<%
+		if (session.getAttribute("Username") == null || session.getAttribute("User") != null) {
+			response.sendRedirect("ErrorPage.jsp");
+		} else {
+	%>
+
 	<%@ include file="AdminNavBar.jsp"%>
 
 	<%
 		try {
-			Connection conn = DBConn.getConnection();
-			PreparedStatement getMembers = conn.prepareStatement("SELECT * FROM members");
-			ResultSet members = getMembers.executeQuery();
+					Connection conn = DBConn.getConnection();
+					PreparedStatement getMembers = conn.prepareStatement("SELECT * FROM members");
+					ResultSet members = getMembers.executeQuery();
 	%>
 	<br />
 	<div class="row" id="content">
@@ -40,7 +46,7 @@
 						<td>Password</td>
 						<td>Contact</td>
 						<td>Mailing Address</td>
-						<td>User Type</td>						
+						<td>User Type</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,7 +61,7 @@
 						<td><small><%=members.getString("Password")%></small></td>
 						<td><small><%=members.getInt("Contact")%></small></td>
 						<td><small><%=members.getString("Address")%></small></td>
-						<td><small><%=members.getString("type")%></small></td>						
+						<td><small><%=members.getString("type")%></small></td>
 					</tr>
 					<%
 						}
@@ -67,8 +73,8 @@
 
 	<%
 		} catch (Exception e) {
-			System.out.println("Error:" + e);
-		}
+					System.out.println("Error:" + e);
+				}
 	%>
 
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -78,6 +84,9 @@
 		$(document).foundation();
 		$(document).foundation('alert', 'reflow');
 	</script>
+	<%
+		}		
+	%>
 </body>
 </html>
 </body>

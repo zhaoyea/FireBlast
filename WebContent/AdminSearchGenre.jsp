@@ -9,17 +9,17 @@
 <link rel="stylesheet"
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
-<body>
+<body>	
 	<%
 		if (session.getAttribute("Username") == null || session.getAttribute("User") != null) {
 			response.sendRedirect("ErrorPage.jsp");	
 		} else {
 	%>
-	
-	<%@include file="AdminSearchBar.jsp"%>
-	
+
+	<%@ include file="AdminSearchBar.jsp"%>
+
 	<%
-		ArrayList<Games> resultsList = (ArrayList<Games>) session.getAttribute("AdminGameResults");
+		ArrayList<Genre> resultsList = (ArrayList<Genre>) session.getAttribute("AdminGenreResults");
 
 			if (resultsList != null) {
 	%>
@@ -31,37 +31,17 @@
 			<table class="hover">
 				<thead>
 					<tr>
-						<td>Game ID</td>
-						<td></td>
-						<td>Game Name</td>
-						<td>Description</td>
-						<td>Price</td>
-						<td>ReleaseDate</td>
-						<td>Console</td>
-						<td>Quantity</td>
-						<td>Action</td>
+						<td>Genre ID</td>
+						<td>Genre Name</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<%
-							for (Games inv : resultsList) {
+							for (Genre inv : resultsList) {
 						%>
-						<td><%=inv.getId()%><input type="hidden"
-							value="<%=inv.getId()%>" name="gameID"></td>
-						<td><img src="<%=inv.getImageLink()%>"
-							alt="<%=inv.getName()%>" width="100px" height="200px" /></td>
-						<td><%=inv.getName()%></td>
-						<td><%=inv.getDescription()%></td>
-						<td><%=inv.getPrice()%></td>
-						<td><%=inv.getDate()%></td>
-						<td><%=inv.getConsole()%></td>
-						<td><%=inv.getQuantity()%></td>
-						<td><a
-							href="AdminUpdateGames.jsp?id=<%=inv.getId()%>&console=<%=inv.getConsole()%>"
-							class="tiny warning button">Update</a> <br /> <a
-									href="DeleteGamesServlet?id=<%=inv.getId()%>&console=<%=inv.getConsole()%>"
-									class="tiny alert button">Delete</a>
+						<td><%=inv.getGenreID()%></td>
+						<td><%=inv.getGenre()%></td>
 					</tr>
 					<%
 						}
@@ -73,6 +53,7 @@
 	<%
 		}
 	%>
+
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script
 		src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>

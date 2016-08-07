@@ -58,10 +58,9 @@ public class Payment extends HttpServlet {
 		} else {
 			for (Cart c : cartList) {
 				TransactionManager purchasedGamesDB = new TransactionManager();
-				purchasedGamesDB.insertPurchasedGames(c.getGameID(), c.getName(), c.getConsole(), c.getImageLink(),
-						c.getQuantity(), c.getPrice());
-				session.setAttribute("paymentDone", "Thanks for buying our game!");
-				response.sendRedirect("receipt.jsp");				
+				purchasedGamesDB.insertPurchasedGames((((User)session.getAttribute("User")).getUserid()),c.getGameID(), c.getName(), c.getConsole(), c.getImageLink(),
+						c.getQuantity(), c.getPrice());		
+				response.sendRedirect("receipt.jsp");
 			}
 		}
 	}

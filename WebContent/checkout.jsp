@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="model.*" import="db.*"
-	import="java.util.*"%>
+	pageEncoding="ISO-8859-1" import="model.*, db.*, java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,10 +9,15 @@
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
 <body>
+	<%
+		if (session.getAttribute("Username") == null) {
+			response.sendRedirect("ErrorPage.jsp");
+		} else {
+	%>
 	<%@ include file="navBar.jsp"%>
 	<%
 		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart");
-		double totalCost = 0;
+			double totalCost = 0;
 	%>
 
 	<br />
@@ -62,8 +66,8 @@
 							<td></td>
 							<%
 								for (Cart c : cartList) {
-									totalCost += c.getPrice() * c.getQuantity();
-								}
+										totalCost += c.getPrice() * c.getQuantity();
+									}
 							%>
 							<td>$<%=totalCost%></td>
 						</tr>
@@ -76,5 +80,6 @@
 			</div>
 		</div>
 	</div>
+	<%} %>
 </body>
 </html>

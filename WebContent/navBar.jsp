@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="java.sql.*" import="model.*"%>
+	pageEncoding="ISO-8859-1" import="java.sql.*, model.*, db.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,8 +36,8 @@
 				</ul>
 			</div>
 			<div class="top-bar-right">
-				<ul class="menu">				
-					<li><form action="SearchGamesServlet" method="get"></li>					
+				<ul class="menu">
+					<li><form action="SearchGamesServlet" method="get"></li>
 					<%
 						session.setAttribute("searchCode", "user");
 					%>
@@ -51,9 +51,10 @@
 						%>
 						<ul class="dropdown menu" data-dropdown-menu>
 							<li class="has-submenu"><a href="#"><%=session.getAttribute("Username")%></a>
-								<ul class="submenu menu vertical" data-submenu>
-									<li><a href="profile.jsp">Profile</a></li>
-									<li><a href="logout">Log Out</a></li>									
+								<ul class="submenu menu vertical" data-submenu>									
+									<li><a
+										href="profile.jsp">Profile</a></li>								
+									<li><a href="logout">Log Out</a></li>
 								</ul></li>
 							<li><a href="cart.jsp"><img
 									src="http://imgur.com/z4kwJMT.png">Cart</a></li>

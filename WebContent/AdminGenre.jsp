@@ -9,13 +9,19 @@
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
 <body>
+	<%
+		if (session.getAttribute("Username") == null || session.getAttribute("User") != null) {
+			response.sendRedirect("ErrorPage.jsp");
+		} else {
+	%>
+
 	<%@ include file="AdminNavBar.jsp"%>
 
 	<%
 		try {
-			Connection conn = DBConn.getConnection();
-			PreparedStatement getGenre = conn.prepareStatement("SELECT * FROM genre");
-			ResultSet genre = getGenre.executeQuery();
+				Connection conn = DBConn.getConnection();
+				PreparedStatement getGenre = conn.prepareStatement("SELECT * FROM genre");
+				ResultSet genre = getGenre.executeQuery();
 	%>
 	<br />
 	<div class="row" id="content">
@@ -31,6 +37,19 @@
 
 		<center>
 			<h4 class="text-center">Genre</h4>
+			<%
+				if (session.getAttribute("GenreUpdate") != null) {
+			%>
+			<center>
+				<div data-alert class="info label">
+					<strong>Success!</strong>
+					<%=session.getAttribute("GenreUpdate")%>
+				</div>
+			</center>
+			<%
+				session.removeAttribute("GenreUpdate");
+						}
+			%>
 			<table class="hover">
 				<thead>
 					<tr>
@@ -46,9 +65,10 @@
 					<tr>
 						<td><%=genre.getInt("GenreID")%></td>
 						<td><%=genre.getString("Genre")%></td>
-						<td><a href="UpdateGenreServlet" class="tiny warning button">Update</a>
-							<br /> <a href="DeleteGenreServlet" class="tiny alert button">Delete</a>
-						</td>
+						<td><a
+							href="AdminUpdateGenre.jsp?genreid=<%=genre.getInt("GenreID")%>"
+							class="tiny warning button">Update</a> <br /> <a
+							href="DeleteGenreServlet" class="tiny alert button">Delete</a></td>
 					</tr>
 					<%
 						}
@@ -60,8 +80,8 @@
 
 	<%
 		} catch (Exception e) {
-			System.out.println("Error:" + e);
-		}
+				System.out.println("Error:" + e);
+			}
 	%>
 
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -71,5 +91,8 @@
 		$(document).foundation();
 		$(document).foundation('alert', 'reflow');
 	</script>
+	<%
+		}
+	%>
 </body>
 </html>

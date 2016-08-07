@@ -16,14 +16,14 @@ import java.util.ArrayList;
 /**
  * Servlet implementation class SearchGamesServlet
  */
-@WebServlet("/SearchGamesServlet")
-public class SearchGamesServlet extends HttpServlet {
+@WebServlet("/SearchGenreServlet")
+public class SearchGenreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SearchGamesServlet() {
+	public SearchGenreServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,22 +39,22 @@ public class SearchGamesServlet extends HttpServlet {
 		// ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 
-		String searchString = request.getParameter("searchString");		
+		String searchString = request.getParameter("searchString");
 		String adminSearch = (String) session.getAttribute("AdminSearch");
-		
-		GamesManager db = new GamesManager();
-		ArrayList<Games> GameResults = db.searchGames(searchString);
-		ArrayList<Games> AdminGame = db.searchGames(adminSearch);
+
+		GenreManager db = new GenreManager();
+		ArrayList<Genre> GenreResults = db.searchGenre(searchString);
+		ArrayList<Genre> AdminGenre = db.searchGenre(adminSearch);
 
 		
-		session.setAttribute("GameResults", GameResults);
-		session.setAttribute("AdminGameResults", AdminGame);
+		session.setAttribute("GenreResults", GenreResults);
+		session.setAttribute("AdminGenreResults", AdminGenre);
 
 		if (session.getAttribute("searchCode").equals("user")) {
 			RequestDispatcher rd = request.getRequestDispatcher("DemoSearch.jsp");
 			rd.forward(request, response);
 		} else if (session.getAttribute("searchCode").equals("admin")){
-			RequestDispatcher rd = request.getRequestDispatcher("AdminSearchGames.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("AdminSearchGenre.jsp");
 			rd.forward(request, response);
 		}
 	}

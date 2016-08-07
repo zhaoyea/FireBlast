@@ -9,37 +9,39 @@
 <link rel="stylesheet"
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 </head>
-<body>
+<body>	
+	<%
+		if (session.getAttribute("Username") == null || session.getAttribute("User") != null) {
+			response.sendRedirect("ErrorPage.jsp");	
+		} else {
+	%>
+	<%@include file="AdminNavBar.jsp"%>
 	<br />
 	<center>
-		<form action="" method="post">
+		<form action="AdminSearch" method="post">
 			<div class="row" id="content">
 				<ul class="menu">
 					<small>What do you want to search?</small>
-					<li><input type="search" placeholder="Search"
-						name="searchString"></li>
+					<br />
+					<input type="radio" name="choose" value="games" checked />
+					<label>Games</label>
+					<input type="radio" name="choose" value="genre" />
+					<label>Genre</label>
+					<li><input type="text" placeholder="Search"
+						name="AdminSearchString"></li>
 					<li><button type="submit" value="search" class="button">Search</button></li>
 				</ul>
 			</div>
 		</form>
-
-		<%
-			String search = request.getParameter("searchString");
-			ArrayList<Games> resultsList = (ArrayList<Games>) session.getAttribute("GameResults");
-
-			if (resultsList != null) {
-		%>
-
 	</center>
-	<%
-		}
-	%>
-	</div>
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script
 		src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
 	<script>
 		$(document).foundation();
 	</script>
+	<%
+		}
+	%>
 </body>
 </html>

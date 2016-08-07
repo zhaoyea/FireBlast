@@ -45,6 +45,7 @@
 							<li><a href="AdminInsertMembers.jsp">Members</a></li>
 						</ul>
 					</li>
+					<li><a href="AdminSearchBar.jsp">Search</a>
 				</ul>
 			</div>
 			<div class="top-bar-right">
@@ -60,8 +61,7 @@
 						%>
 						<ul class="dropdown menu" data-dropdown-menu>
 							<li class="has-submenu"><a href="#"><%=session.getAttribute("Username")%></a>
-								<ul class="submenu menu vertical" data-submenu>
-									<li><a href="profile.jsp">Profile</a></li>
+								<ul class="submenu menu vertical" data-submenu>									
 									<li><a href="logout">Log Out</a></li>
 								</ul></li>
 						</ul> <%
