@@ -14,14 +14,14 @@ public class GamesManager {
 
 			Connection conn = DBConn.getConnection();
 
-			String sql = "SELECT * FROM Games WHERE GameID LIKE ? OR Name LIKE ? OR Console LIKE ?";
+			String sql = "SELECT * FROM games WHERE GameID LIKE ? OR Name LIKE ? OR Console LIKE ?";
 
 			ArrayList<Games> invList = new ArrayList<Games>();
 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + search + "%");
 			pstmt.setString(2, "%" + search + "%");
-			pstmt.setString(3, "%" + search + "%");
+			pstmt.setString(3, "%" + search + "%");			
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -51,7 +51,7 @@ public class GamesManager {
 		Games game = null;
 		try {
 			Connection conn = DBConn.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Games WHERE GameID=?");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM games WHERE GameID=?");
 			pstmt.setString(1, gameID);
 
 			ResultSet rs = pstmt.executeQuery();
@@ -76,7 +76,7 @@ public class GamesManager {
 		try {
 			Connection conn = DBConn.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(
-					"INSERT INTO Games(GameID,Name,Description,Price,ReleaseDate,GameImageLink,Console,Quantity) VALUES(?,?,?,?,?,?,?,?)");
+					"INSERT INTO games(GameID,Name,Description,Price,ReleaseDate,GameImageLink,Console,Quantity) VALUES(?,?,?,?,?,?,?,?)");
 
 			pstmt.setInt(1, id);
 			pstmt.setString(2, name);
@@ -101,7 +101,7 @@ public class GamesManager {
 		try {
 			Connection conn = DBConn.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(
-					"UPDATE Games SET Name=?, Description=?, Price=?, GameImageLink=?, Quantity=? WHERE GameID=?");
+					"UPDATE games SET Name=?, Description=?, Price=?, GameImageLink=?, Quantity=? WHERE GameID=?");
 
 			pstmt.setString(1, name);
 			pstmt.setString(2, description);
@@ -118,12 +118,45 @@ public class GamesManager {
 		}
 		return null;
 	}
+	
+	public ArrayList<Stock> searchStock(int quantity) {
+
+		try {
+
+			Connection conn = DBConn.getConnection();
+
+			String sql = "SELECT * FROM games WHERE Quantity<=?";
+
+			ArrayList<Stock> invList = new ArrayList<Stock>();
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, quantity);		
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				String name = rs.getString("name");
+				double price = rs.getDouble("price");
+				quantity = rs.getInt("Quantity");
+				String console = rs.getString("Console");
+
+				Stock inv = new Stock(quantity, name, price, console);
+				invList.add(inv);
+			}
+			conn.close();
+			return invList;
+		} catch (Exception e) {
+
+			System.out.println("Error :" + e);
+			return null;
+		}
+	}
 
 	public boolean deleteGames(int gameID) {
 		try {
 			Connection conn = DBConn.getConnection();
 
-			String sql = "DELETE FROM Games WHERE GameID=?";
+			String sql = "DELETE FROM games WHERE GameID=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, gameID);
 

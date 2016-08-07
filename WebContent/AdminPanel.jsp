@@ -23,6 +23,7 @@
 			<li><a href="AdminGames.jsp">Games Table</a></li>
 			<li><a href="AdminGenre.jsp">Genre Table</a></li>
 			<li><a href="AdminMembers.jsp">Members Table</a></li>
+			<li><a href="AdminSearchStock.jsp">Stock Table</a></li>
 		</ul>
 		</nav>
 	</div>

@@ -18,7 +18,7 @@
 			try {
 				Connection conn = DBConn.getConnection();
 
-				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Games WHERE GameID=?");
+				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM games WHERE GameID=?");
 				pstmt.setString(1, GameID);
 
 				ResultSet rs = pstmt.executeQuery();

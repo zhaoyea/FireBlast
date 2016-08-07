@@ -1,8 +1,6 @@
 package db;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,17 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.GamesManager;
+
 /**
- * Servlet implementation class AdminSearch
+ * Servlet implementation class DeleteGenreServlet
  */
-@WebServlet("/AdminSearch")
-public class AdminSearch extends HttpServlet {
+@WebServlet("/DeleteGenreServlet")
+public class DeleteGenreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminSearch() {
+    public DeleteGenreServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +34,11 @@ public class AdminSearch extends HttpServlet {
 		response.setContentType("text/html");
 		HttpSession session = request.getSession();
 		
-		String choose = request.getParameter("choose");			
-		String adminSearch = request.getParameter("AdminSearchString");		
-		
-		if("games".equals(choose)) {			
-			session.setAttribute("AdminSearch", adminSearch);			
-			response.sendRedirect("SearchGamesServlet");
-		}
-		else if ("genre".equals(choose)){			
-			session.setAttribute("AdminSearch", adminSearch);
-			response.sendRedirect("SearchGenreServlet");			
-		}
-		else {
-			session.setAttribute("AdminSearch", adminSearch);
-			response.sendRedirect("SearchStockServlet");
-		}
+		int deleteGameID = Integer.parseInt(request.getParameter("id"));		
+		GamesManager games = new GamesManager();
+		games.deleteGames(deleteGameID);
+		session.setAttribute("deleteGame", "Game Deleted");
+		response.sendRedirect(request.getHeader("Referer"));
 	}
 
 	/**

@@ -89,7 +89,7 @@
 
 
 		<%
-			PreparedStatement getGenre = conn.prepareStatement("SELECT * FROM Genre");
+			PreparedStatement getGenre = conn.prepareStatement("SELECT * FROM genre");
 				ResultSet genre = getGenre.executeQuery();
 		%>
 

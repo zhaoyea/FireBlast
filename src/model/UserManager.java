@@ -16,7 +16,7 @@ public class UserManager {
 
 			Connection conn = DBConn.getConnection();
 
-			String sql = "SELECT * FROM Members WHERE email=?";
+			String sql = "SELECT * FROM members WHERE email=?";
 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
@@ -68,7 +68,7 @@ public class UserManager {
 		try {
 			Connection conn = DBConn.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(
-					"INSERT INTO Members(FirstName,LastName,Email,Password,Contact,Address) VALUES(?,?,?,?,?,?)");
+					"INSERT INTO members(FirstName,LastName,Email,Password,Contact,Address) VALUES(?,?,?,?,?,?)");
 
 			pstmt.setString(1, firstName);
 			pstmt.setString(2, lastName);

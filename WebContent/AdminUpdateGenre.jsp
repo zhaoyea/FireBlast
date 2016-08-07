@@ -21,7 +21,7 @@
 			try {
 				Connection conn = DBConn.getConnection();
 
-				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Genre WHERE GenreID=?");
+				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM genre WHERE GenreID=?");
 				pstmt.setString(1, GenreID);
 
 				ResultSet rs = pstmt.executeQuery();

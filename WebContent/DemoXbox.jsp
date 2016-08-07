@@ -44,7 +44,7 @@
 		try {
 			Connection conn = DBConn.getConnection();
 
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Games WHERE Console='XBox'");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM games WHERE Console='XBox'");
 
 			ResultSet xbox = pstmt.executeQuery();
 	%>
@@ -87,7 +87,7 @@
 
 
 		<%
-			PreparedStatement getGenre = conn.prepareStatement("SELECT * FROM Genre");
+			PreparedStatement getGenre = conn.prepareStatement("SELECT * FROM genre");
 				ResultSet genre = getGenre.executeQuery();
 		%>
 

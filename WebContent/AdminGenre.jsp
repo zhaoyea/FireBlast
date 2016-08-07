@@ -68,7 +68,7 @@
 						<td><a
 							href="AdminUpdateGenre.jsp?genreid=<%=genre.getInt("GenreID")%>"
 							class="tiny warning button">Update</a> <br /> <a
-							href="DeleteGenreServlet" class="tiny alert button">Delete</a></td>
+							href="DeleteGenreServlet?id=<% %>" class="tiny alert button">Delete</a></td>
 					</tr>
 					<%
 						}

@@ -45,10 +45,13 @@ public class Payment extends HttpServlet {
 		String expiryMonth = request.getParameter("expiryMonth");
 		String expiryYear = request.getParameter("expiryYear");
 		String ccv = request.getParameter("ccv");
-		
-		System.out.println(cardName);
 
 		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart");
+		
+		if (cartList == null) {
+			response.sendRedirect("DemoIndex.jsp");
+			return;
+		}
 
 		if (cardName == null || cardName.isEmpty() || creditCardNumber == null || creditCardNumber.isEmpty()
 				|| expiryMonth == null || expiryMonth.isEmpty() || expiryYear == null || expiryYear.isEmpty()
@@ -61,6 +64,7 @@ public class Payment extends HttpServlet {
 				purchasedGamesDB.insertPurchasedGames((((User)session.getAttribute("User")).getUserid()),c.getGameID(), c.getName(), c.getConsole(), c.getImageLink(),
 						c.getQuantity(), c.getPrice());		
 				response.sendRedirect("receipt.jsp");
+				return;
 			}
 		}
 	}

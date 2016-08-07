@@ -27,8 +27,10 @@
 					<label>Games</label>
 					<input type="radio" name="choose" value="genre" />
 					<label>Genre</label>
+					<input type="radio" name="choose" value="stock" />
+					<label>Stock</label>					
 					<li><input type="text" placeholder="Search"
-						name="AdminSearchString"></li>
+						name="AdminSearchString"></li>									
 					<li><button type="submit" value="search" class="button">Search</button></li>
 				</ul>
 			</div>

@@ -7,36 +7,6 @@
 <title>PlayStation</title>
 <link rel="stylesheet"
 	href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
-<script>
-	function SelectRedirect() {
-
-		switch (document.getElementById('s1').value) {
-		case "Action":
-			window.location = "DemoPC_action.jsp";
-			break;
-
-		case "Adventure":
-			window.location = "DemoPC_adventure.jsp";
-			break;
-
-		case "Casual":
-			window.location = "DemoPC_casual.jsp";
-			break;
-		case "RPG":
-			window.location = "DemoPC_rpg.jsp";
-			break;
-
-		case "Sports":
-			window.location = "DemoPC_sports.jsp";
-			break;
-
-		/// Can be extended to other different selections of SubCategory //////
-		default:
-			window.location = "DemoIndex.jsp"; // if no selection matches then redirected to home page
-			break;
-		}// end of switch 
-	}
-</script>
 </head>
 <body>
 	<%@ include file="navBar.jsp"%>
@@ -44,7 +14,7 @@
 		try {
 			Connection conn = DBConn.getConnection();
 
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Games WHERE Console='PC'");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM games WHERE Console='PC'");
 
 			ResultSet pc = pstmt.executeQuery();
 	%>
@@ -87,7 +57,7 @@
 
 
 		<%
-			PreparedStatement getGenre = conn.prepareStatement("SELECT * FROM Genre");
+			PreparedStatement getGenre = conn.prepareStatement("SELECT * FROM genre");
 				ResultSet genre = getGenre.executeQuery();
 		%>
 

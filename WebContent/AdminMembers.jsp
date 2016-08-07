@@ -47,6 +47,7 @@
 						<td>Contact</td>
 						<td>Mailing Address</td>
 						<td>User Type</td>
+						<td></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,6 +63,7 @@
 						<td><small><%=members.getInt("Contact")%></small></td>
 						<td><small><%=members.getString("Address")%></small></td>
 						<td><small><%=members.getString("type")%></small></td>
+						<td><a href="AdminUserProfile.jsp?id=<%=members.getInt("UserID") %>" class="tiny warning button">View</a></td>
 					</tr>
 					<%
 						}

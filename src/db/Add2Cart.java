@@ -51,13 +51,16 @@ public class Add2Cart extends HttpServlet {
 		String console = request.getParameter("console");
 		int inputQuantity = Integer.parseInt(request.getParameter("inputQuantity"));
 		int dbQuantity = Integer.parseInt(request.getParameter("dbQuantity"));
-
+		
+		
 		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("displayCart");
 		Games g = new Games();
 
 		if (cartList == null) {
 			cartList = new ArrayList<Cart>();
 		}
+		
+		
 
 		if (inputQuantity == 0 || inputQuantity < 0) {
 			inputQuantityError = "Please enter a valid quantity value!";
@@ -70,17 +73,17 @@ public class Add2Cart extends HttpServlet {
 			session.setAttribute("inputQuantityError", inputQuantityError);
 			response.sendRedirect(request.getHeader("Referer"));
 			return;
-		} else {
+		} else {		
+			for (Cart c : cartList) {
+				if (gameID == c.getGameID()) {
+					c.setQuantity(c.getQuantity() + inputQuantity);	
+					response.sendRedirect("cart.jsp");
+					return;
+				}										
+			}
 			Cart cart = new Cart(gameID, name, description, price, imageLink, console, inputQuantity);
 			cartList.add(cart);
 			session.setAttribute("displayCart", cartList);
-
-			for (Cart c : cartList) {
-				if (gameID == c.getGameID()) {
-					c.setQuantity(inputQuantity);
-					break;
-				}
-			}
 			response.sendRedirect("cart.jsp");
 		}
 

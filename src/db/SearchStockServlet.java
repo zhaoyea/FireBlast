@@ -1,6 +1,7 @@
 package db;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,18 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.*;
 
 /**
- * Servlet implementation class AdminSearch
+ * Servlet implementation class SearchStockServlet
  */
-@WebServlet("/AdminSearch")
-public class AdminSearch extends HttpServlet {
+@WebServlet("/SearchStockServlet")
+public class SearchStockServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminSearch() {
+    public SearchStockServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +33,19 @@ public class AdminSearch extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.setContentType("text/html");
 		HttpSession session = request.getSession();
 		
-		String choose = request.getParameter("choose");			
-		String adminSearch = request.getParameter("AdminSearchString");		
+		String adminSearch = (String) session.getAttribute("AdminSearch");	
+		int stock = Integer.parseInt(adminSearch);
 		
-		if("games".equals(choose)) {			
-			session.setAttribute("AdminSearch", adminSearch);			
-			response.sendRedirect("SearchGamesServlet");
-		}
-		else if ("genre".equals(choose)){			
-			session.setAttribute("AdminSearch", adminSearch);
-			response.sendRedirect("SearchGenreServlet");			
-		}
-		else {
-			session.setAttribute("AdminSearch", adminSearch);
-			response.sendRedirect("SearchStockServlet");
-		}
+		
+		GamesManager db = new GamesManager();
+		ArrayList<Stock> AdminGame = db.searchStock(stock);
+		session.setAttribute("AdminStockResults", AdminGame);
+		RequestDispatcher rd = request.getRequestDispatcher("AdminSearchStock.jsp");
+		rd.forward(request, response);
+		
+		
 	}
 
 	/**
